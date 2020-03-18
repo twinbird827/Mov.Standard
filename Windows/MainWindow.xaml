@@ -1,0 +1,58 @@
+﻿<Controls:MetroWindow x:Class="Mov.Standard.Windows.MainWindow"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:local="clr-namespace:Mov.Standard.Windows"
+                      mc:Ignorable="d"
+                      xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+                      xmlns:behavior="clr-namespace:My.Wpf.Behaviors;assembly=My.Wpf"
+                      xmlns:usercontrol="clr-namespace:My.Wpf.UserControls;assembly=My.Wpf"
+                      xmlns:notifications="clr-namespace:Notifications.Wpf.Controls;assembly=Notifications.Wpf"
+                      xmlns:properties="clr-namespace:Mov.Standard.Properties"
+                      SaveWindowPosition="True"
+                      BorderBrush="{DynamicResource AccentColorBrush}"
+                      BorderThickness="1"
+                      TitleCaps="False"
+                      Icon="/Mov.Standard;component/Designs/mov_standard.ico"
+                      Title="{Binding Current.ApplicationTitle}" 
+                      behavior:WindowBehavior.ContentRendered="{Binding OnLoaded}"
+                      behavior:WindowBehavior.Disposable="{Binding}"
+                      behavior:WindowBehavior.Closing="{Binding OnClosing}"
+                      MinWidth="600" MinHeight="400">
+    <Controls:MetroWindow.DataContext>
+        <local:MainViewModel />
+    </Controls:MetroWindow.DataContext>
+
+    <Grid>
+
+        <notifications:NotificationArea x:Name="NotificationArea" Position="BottomRight" MaxItems="3" />
+
+        <DockPanel>
+
+            <!-- ｽﾃｰﾀｽﾊﾞｰ -->
+            <StatusBar DockPanel.Dock="Bottom" >
+                <TextBlock Style="{StaticResource DefaultTextBlock}"
+                           Text="{Binding Now, StringFormat={x:Static properties:Resources.S_Default_DateFormat}}" />
+            </StatusBar>
+
+            <!-- ﾒﾆｭｰ -->
+            <StackPanel Style="{StaticResource HorizontalStackPanel}">
+
+                <usercontrol:IconPacksButton Command="{Binding OnClickMenu}"
+                                             CommandParameter="{x:Static local:MenuType.NicoNico}"
+                                             Kind="Tram"
+                                             Text="NicoNico" />
+                
+            </StackPanel>
+            
+            <!-- ｺﾝﾃﾝﾂ -->
+            
+        </DockPanel>
+        
+        <Border Visibility="{Binding IsShowDialog, Converter={StaticResource Boolean2VisibilityCollapsedConverter}}"
+                Background="{StaticResource ProcessingBackgroundBrush}" />
+
+    </Grid>
+</Controls:MetroWindow>
