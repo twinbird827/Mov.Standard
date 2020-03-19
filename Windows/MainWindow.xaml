@@ -25,6 +25,14 @@
         <local:MainViewModel />
     </Controls:MetroWindow.DataContext>
 
+    <Controls:MetroWindow.Resources>
+
+        <DataTemplate DataType="{x:Type local:WorkspaceViewModel}">
+            <local:WorkspaceWindow />
+        </DataTemplate>
+
+    </Controls:MetroWindow.Resources>
+
     <Grid>
 
         <notifications:NotificationArea x:Name="NotificationArea" Position="BottomRight" MaxItems="3" />

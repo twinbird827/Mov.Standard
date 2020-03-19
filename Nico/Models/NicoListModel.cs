@@ -99,7 +99,7 @@ namespace Mov.Standard.Nico.Models
 
         private async Task<NicoListModel> GetInstanceAsync(string value, string orderby)
         {
-            var listid = value.Split('/').Last().Split('?').First();
+            var listid = NicoUtil.ToNicolistId(value);
 
             MylistId = listid;
             OrderBy = orderby;
@@ -124,17 +124,17 @@ namespace Mov.Standard.Nico.Models
             ThumbnailUrl = thumbnailurl + iframestr;
 
             // Video更新
-            await ReloadVideos(xml);
+            ReloadVideos(xml);
 
             return this;
         }
 
         public async Task ReloadVideos()
         {
-            await ReloadVideos(await WebUtil.GetXmlChannelAsync(MylistUrl, false));
+            ReloadVideos(await WebUtil.GetXmlChannelAsync(MylistUrl, false));
         }
 
-        private async Task ReloadVideos(XElement xml)
+        private void ReloadVideos(XElement xml)
         {
             Videos.Clear();
 

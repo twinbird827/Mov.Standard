@@ -86,10 +86,28 @@
     <Compile Include="Core\Databases\DbSettingExtensions.cs" />
     <Compile Include="Core\Databases\DbUtil.cs" />
     <Compile Include="Core\Databases\TSetting.cs" />
+    <Compile Include="Nico\Components\NicoComboViewModel.cs" />
+    <Compile Include="Nico\Components\NicoVideoWindow.xaml.cs">
+      <DependentUpon>NicoVideoWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Nico\Components\NicoVideoViewModel.cs" />
     <Compile Include="Nico\Models\WebUtil.cs" />
     <Compile Include="Models\VideoStatus.cs" />
     <Compile Include="Nico\Models\NicoListModel.cs" />
     <Compile Include="Nico\Models\NicoVideoModel.cs" />
+    <Compile Include="Nico\Workspaces\NicoMainViewModel.cs" />
+    <Compile Include="Nico\Workspaces\NicoMainWindow.xaml.cs">
+      <DependentUpon>NicoMainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Nico\Workspaces\NicoMenuType.cs" />
+    <Compile Include="Nico\Workspaces\NicoRankingViewModel.cs" />
+    <Compile Include="Nico\Workspaces\NicoRankingWindow.xaml.cs">
+      <DependentUpon>NicoRankingWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Nico\Workspaces\NicoWorkspaceViewModel.cs" />
+    <Compile Include="Nico\Workspaces\NicoWorkspaceWindow.xaml.cs">
+      <DependentUpon>NicoWorkspaceWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Nuget\DynamicJson.cs" />
     <Compile Include="Models\VideoModel.cs" />
     <Compile Include="Nico\Models\Session.cs" />
@@ -97,7 +115,26 @@
     <Compile Include="Windows\MainViewModel.cs" />
     <Compile Include="Windows\MenuType.cs" />
     <Compile Include="Windows\WorkspaceViewModel.cs" />
+    <Compile Include="Windows\WorkspaceWindow.xaml.cs">
+      <DependentUpon>WorkspaceWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="Designs\Common.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Nico\Components\NicoVideoWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Nico\Workspaces\NicoMainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Nico\Workspaces\NicoRankingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Nico\Workspaces\NicoWorkspaceWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -113,6 +150,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Windows\WorkspaceWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -157,8 +198,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="lib\" />
-    <Folder Include="Nico\Components\" />
-    <Folder Include="Nico\Workspaces\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Designs\mov_standard.ico" />
