@@ -11,6 +11,10 @@ namespace Mov.Standard.Nico.Workspaces
 {
     public class NicoMainViewModel : WorkspaceViewModel
     {
+        public NicoMainViewModel()
+        {
+            Current = new NicoRankingViewModel();
+        }
 
         public override string Title => Current.Title;
 
@@ -31,6 +35,9 @@ namespace Mov.Standard.Nico.Workspaces
             switch (type)
             {
                 case NicoMenuType.Settings:
+                    break;
+                case NicoMenuType.Ranking:
+                    Current = new NicoRankingViewModel();
                     break;
             }
         });

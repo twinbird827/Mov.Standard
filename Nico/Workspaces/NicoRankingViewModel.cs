@@ -22,7 +22,7 @@ namespace Mov.Standard.Nico.Workspaces
 
             Loaded += async (sender, e) =>
             {
-                Videos.AddRange(await NicoUtil.GetRanking("hourly", "all", "all"));
+                Videos.AddRange(await NicoUtil.GetRanking("all", "all", "hourly"));
 
                 foreach (var video in Videos)
                 {

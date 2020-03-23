@@ -11,6 +11,7 @@ using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Web;
 using System.Windows.Media.Imaging;
 using System.Xml.Linq;
 
@@ -103,7 +104,7 @@ namespace Mov.Standard.Nico.Models
                 // 明細部読み込み
                 var descriptionString = item.Element("description").Value;
                 //descriptionString = descriptionString.Replace("&nbsp;", "&#x20;");
-                ////descriptionString = HttpUtility.HtmlDecode(descriptionString);
+                descriptionString = HttpUtility.HtmlDecode(descriptionString);
                 //descriptionString = descriptionString.Replace("&", "&amp;");
                 ////descriptionString = descriptionString.Replace("'", "&apos;");
                 var desc = WebUtil.ToXml($"<root>{descriptionString}</root>");
@@ -201,16 +202,16 @@ namespace Mov.Standard.Nico.Models
         {
             var videoid = ToVideoId(url);
             var txt = await WebUtil.GetStringAsync($"http://ext.nicovideo.jp/api/getthumbinfo/{videoid}", false);
-            var xml = WebUtil.ToXml(txt).Descendants("thumb").FirstOrDefault();
+            var xml = WebUtil.ToXml(txt);
             var video = new NicoVideoModel();
 
-            if (xml == null || (string)xml.Element("nicovideo_thumb_response").Attribute("status") == "fail")
+            if (xml == null || (string)xml.Attribute("status") == "fail")
             {
                 video.VideoId = videoid;
                 video.Status = VideoStatus.Delete;
                 return video;
             }
-
+            xml = xml.Descendants("thumb").First();
             video.VideoId = (string)xml.Element("watch_url");
             video.Title = (string)xml.Element("title");
             video.Description = (string)xml.Element("description");

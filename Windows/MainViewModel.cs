@@ -1,4 +1,5 @@
-﻿using My.Wpf.Core;
+﻿using Mov.Standard.Nico.Workspaces;
+using My.Wpf.Core;
 using My.Wpf.Windows;
 using System;
 using System.Collections.Generic;
@@ -42,6 +43,9 @@ namespace Mov.Standard.Windows
             switch (type)
             {
                 case MenuType.Settings:
+                    break;
+                case MenuType.NicoNico:
+                    Current = new NicoMainViewModel();
                     break;
             }
         });

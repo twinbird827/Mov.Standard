@@ -46,7 +46,8 @@
             </StatusBar>
 
             <!-- ﾒﾆｭｰ -->
-            <StackPanel Style="{StaticResource HorizontalStackPanel}">
+            <StackPanel DockPanel.Dock="Top" 
+                        Style="{StaticResource HorizontalStackPanel}">
 
                 <usercontrol:IconPacksButton Command="{Binding OnClickMenu}"
                                              CommandParameter="{x:Static local:MenuType.NicoNico}"
@@ -56,7 +57,9 @@
             </StackPanel>
             
             <!-- ｺﾝﾃﾝﾂ -->
-            
+            <ContentPresenter Margin="3"
+                              Content="{Binding Current}" />
+
         </DockPanel>
         
         <Border Visibility="{Binding IsShowDialog, Converter={StaticResource Boolean2VisibilityCollapsedConverter}}"

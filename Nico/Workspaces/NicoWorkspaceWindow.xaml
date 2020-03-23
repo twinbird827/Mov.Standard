@@ -7,7 +7,16 @@
              xmlns:behavior="clr-namespace:My.Wpf.Behaviors;assembly=My.Wpf"
              behavior:FrameworkElementBehavior.Loaded="{Binding OnLoaded}"
              mc:Ignorable="d">
+    <UserControl.Resources>
+
+        <DataTemplate DataType="{x:Type local:NicoRankingViewModel}">
+            <local:NicoRankingWindow />
+        </DataTemplate>
+
+    </UserControl.Resources>
+
     <Grid>
-            
+        <ContentPresenter Content="{Binding}" />
+
     </Grid>
 </UserControl>
