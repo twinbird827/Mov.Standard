@@ -4,10 +4,12 @@ using My.Core;
 using My.Wpf.Core;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using System.Windows.Input;
 using System.Windows.Media.Imaging;
 
 namespace Mov.Standard.Nico.Components
@@ -30,8 +32,6 @@ namespace Mov.Standard.Nico.Components
             ThumbnailUrl = Source.ThumbnailUrl;
             Username = Source.Username;
             Status = Source.Status;
-
-            NicoUtil.SetThumbnail(this);
 
             Source.AddOnPropertyChanged(this, (sender, e) =>
             {
@@ -63,7 +63,6 @@ namespace Mov.Standard.Nico.Components
                         break;
                     case nameof(ThumbnailUrl):
                         ThumbnailUrl = Source.ThumbnailUrl;
-                        NicoUtil.SetThumbnail(this);
                         break;
                     case nameof(Username):
                         Username = Source.Username;
@@ -73,6 +72,13 @@ namespace Mov.Standard.Nico.Components
                         break;
                 }
             });
+
+            Loaded += async (sender, e) =>
+            {
+                await NicoUtil.ReloadVideoAsync(Source);
+
+                Thumbnail = await NicoUtil.GetThumbnailAsync(this);
+            };
         }
 
         public NicoVideoModel Source { get; private set; }
@@ -174,6 +180,65 @@ namespace Mov.Standard.Nico.Components
         /// ｽﾃｰﾀｽ文字
         /// </summary>
         public string StatusString => Status.GetLabel();
+
+        public ICommand OnLoaded => _OnLoaded = _OnLoaded ?? new RelayCommand(_ =>
+        {
+            Loaded?.Invoke(this, EventArgs.Empty);
+        });
+        private ICommand _OnLoaded;
+
+        public event EventHandler Loaded;
+
+        public ICommand OnDoubleClick => _OnDoubleClick = _OnDoubleClick ?? new RelayCommand(_ =>
+        {
+            Process.Start(@"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe", VideoUrl);
+
+            Source.Status = VideoStatus.See;
+
+            // TODO 視聴ﾘｽﾄに追加
+
+            // TODO 詳細にあるidをtemporaryに追加
+        });
+        private ICommand _OnDoubleClick;
+
+        public ICommand OnKeyDown => _OnKeyDown = _OnKeyDown ?? new RelayCommand<KeyEventArgs>(e =>
+        {
+            if (e.Key == Key.Enter)
+            {
+                OnDoubleClick.Execute(null);
+            }
+        });
+        private ICommand _OnKeyDown;
+
+        public ICommand OnDownload => _OnDownload = _OnDownload ?? new RelayCommand(_ =>
+        {
+            Loaded?.Invoke(this, EventArgs.Empty);
+        });
+        private ICommand _OnDownload;
+
+        public ICommand OnAdd => _OnAdd = _OnAdd ?? new RelayCommand(async _ =>
+        {
+            if (!NicoTemporaryModel.Instance.Videos.Any(video => video.VideoId == Source.VideoId))
+            {
+                await NicoUtil.AddVideo(VideoId);
+                NicoTemporaryModel.Instance.Videos.Add(Source);
+                NicoTemporaryModel.Instance.Count += 1;
+            }
+        });
+        private ICommand _OnAdd;
+
+        public ICommand OnDelete => _OnDelete = _OnDelete ?? new RelayCommand(async _ =>
+        {
+            if (NicoTemporaryModel.Instance.Videos.Any(video => video.VideoId == Source.VideoId))
+            {
+                await NicoUtil.DeleteVideo(VideoId);
+                NicoTemporaryModel.Instance.Videos.Remove(
+                    NicoTemporaryModel.Instance.Videos.First(video => video.VideoId == Source.VideoId)
+                );
+                NicoTemporaryModel.Instance.Count -= 1;
+            }
+        });
+        private ICommand _OnDelete;
 
     }
 }

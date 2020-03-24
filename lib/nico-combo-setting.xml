@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xml>
+  <combo group="rank_genre">
+    <item value="all"                   display="全ジャンル" />
+    <item value="hot_topic"             display="話題" />
+    <item value="entertainment"         display="エンターテイメント" />
+    <item value="radio"                 display="ラジオ" />
+    <item value="music_sound"           display="音楽・サウンド" />
+    <item value="dance"                 display="ダンス" />
+    <item value="animal"                display="動物" />
+    <item value="nature"                display="自然" />
+    <item value="cooking"               display="料理" />
+    <item value="traveling_outdoor"     display="旅行・アウトドア" />
+    <item value="vehicle"               display="乗り物" />
+    <item value="sports"                display="スポーツ" />
+    <item value="society_politics_news" display="社会・政治・時事" />
+    <item value="technology_craft"      display="技術・工作" />
+    <item value="commentary_lecture"    display="解説・講座" />
+    <item value="anime"                 display="アニメ" />
+    <item value="game"                  display="ゲーム" />
+    <item value="other"                 display="その他" />
+    <item value="r18"                   display="R-18" />
+  </combo>
+  <combo group="rank_period">
+    <item value="hourly"  display="hourly" />
+    <item value="daily"   display="daily" />
+    <item value="weekly"  display="weekly" />
+    <item value="monthly" display="monthly" />
+    <item value="total"   display="total" />
+  </combo>
+  <combo group="mylist_order">
+    <item value="0"   display="SORT_MYREG0" />
+    <item value="1"   display="SORT_MYREG1" />
+    <item value="2"   display="SORT_MYCOMMENT0" />
+    <item value="3"   display="SORT_MYCOMMENT1" />
+    <item value="4"   display="SORT_TITLE0" />
+    <item value="5"   display="SORT_TITLE1" />
+    <item value="6"   display="SORT_UPLOAD0" />
+    <item value="7"   display="SORT_UPLOAD1" />
+    <item value="8"   display="SORT_VIEWRES0" />
+    <item value="9"   display="SORT_VIEWRES1" />
+    <item value="10"  display="SORT_COMMENT0" />
+    <item value="11"  display="SORT_COMMENT1" />
+    <item value="12"  display="SORT_COMMENTRES0" />
+    <item value="13"  display="SORT_COMMENTRES1" />
+    <item value="14"  display="SORT_MYREGRES0" />
+    <item value="15"  display="SORT_MYREGRES1" />
+    <item value="16"  display="SORT_LENGTH0" />
+    <item value="17"  display="SORT_LENGTH1" />
+  </combo>
+</xml>

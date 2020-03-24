@@ -15,4 +15,46 @@
         <Setter Property="behavior:TextBlockBehavior.MaxLines" Value="5" />
     </Style>
 
+    <Style x:Key="DefaultImage" TargetType="Image">
+        <Setter Property="Width" Value="{Binding RelativeSource={RelativeSource Self}, Path=Source.PixelWidth}" />
+        <Setter Property="Height" Value="{Binding RelativeSource={RelativeSource Self}, Path=Source.PixelHeight}" />
+    </Style>
+
+    <Style x:Key="NicoVideoWindow.ItemContainerStyle" TargetType="ListBoxItem" BasedOn="{StaticResource MetroListBoxItem}">
+        <Setter Property="behavior:FrameworkElementBehavior.DoubleClick" Value="{Binding OnDoubleClick}" />
+        <Setter Property="behavior:ControlBehavior.KeyDown" Value="{Binding OnKeyDown}" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="ContextMenu">
+            <Setter.Value>
+                <ContextMenu>
+                    <MenuItem Header="追加"
+                              Command="{Binding OnAdd}" />
+                    <MenuItem Header="削除" 
+                              Command="{Binding OnDelete}" />
+                    <MenuItem Header="ﾀﾞｳﾝﾛｰﾄﾞ" 
+                              Command="{Binding OnDownload}" />
+                </ContextMenu>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--
+        VideoItemsWindow定義
+    -->
+    <Style x:Key="NicoTemporary.NicoVideoWindow.ItemContainerStyle" TargetType="ListBoxItem" BasedOn="{StaticResource MetroListBoxItem}">
+        <Setter Property="behavior:FrameworkElementBehavior.DoubleClick" Value="{Binding OnDoubleClick}" />
+        <Setter Property="behavior:ControlBehavior.KeyDown" Value="{Binding OnKeyDown}" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="ContextMenu">
+            <Setter.Value>
+                <ContextMenu>
+                    <MenuItem Header="削除" 
+                              Command="{Binding OnDelete}" />
+                    <MenuItem Header="ﾀﾞｳﾝﾛｰﾄﾞ" 
+                              Command="{Binding OnDownload}" />
+                </ContextMenu>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>

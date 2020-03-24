@@ -1,0 +1,111 @@
+﻿<UserControl x:Class="Mov.Standard.Nico.Workspaces.NicoMylistWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Mov.Standard.Nico.Workspaces"
+             xmlns:components="clr-namespace:Mov.Standard.Nico.Components"
+             xmlns:usercontrol="clr-namespace:My.Wpf.UserControls;assembly=My.Wpf"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:properties="clr-namespace:Mov.Standard.Properties"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+
+        <DataTemplate DataType="{x:Type components:NicoVideoViewModel}">
+            <components:NicoVideoWindow />
+        </DataTemplate>
+
+    </UserControl.Resources>
+
+    <DockPanel>
+
+        <DockPanel DockPanel.Dock="Left" Width="150">
+
+            <ComboBox DockPanel.Dock="Top"
+                      Style="{StaticResource DefaultComboBox}"
+                      ItemsSource="{Binding Orders}"
+                      SelectedItem="{Binding SelectedOrder}" />
+
+            <DockPanel DockPanel.Dock="Top">
+
+                <StackPanel DockPanel.Dock="Right"
+                            Style="{StaticResource HorizontalStackPanel}">
+
+                    <Button Style="{StaticResource DefaultButton}" 
+                            Command="{Binding OnClickSearch}"
+                            Content="{iconPacks:Material Kind=Magnify}"
+                            ToolTip="{x:Static properties:Resources.L_IconSearch}" />
+
+                    <Button Style="{StaticResource DefaultButton}" 
+                            Command="{Binding OnClickAdd}"
+                            Content="{iconPacks:Material Kind=Plus}"
+                            ToolTip="{x:Static properties:Resources.L_IconAdd}" />
+
+                </StackPanel>
+
+                <TextBox Style="{StaticResource DefaultInputTextBox}"
+                         Text="{Binding Text, UpdateSourceTrigger=PropertyChanged}" />
+                
+            </DockPanel>
+
+            <DockPanel Visibility="{Binding IsCreatorVisible, Converter={StaticResource Boolean2VisibilityCollapsedConverter}}">
+
+                <Image DockPanel.Dock="Top"
+                       Source="{Binding Thumbnail}" />
+
+                <Grid DockPanel.Dock="Top">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0"
+                           Grid.Column="0"
+                           Text="ﾕｰｻﾞID：" />
+
+                    <TextBlock Grid.Row="0"
+                           Grid.Column="1"
+                           Text="{Binding UserId}" />
+
+                    <TextBlock Grid.Row="1"
+                           Grid.Column="0"
+                           Text="ﾕｰｻﾞ名：" />
+
+                    <TextBlock Grid.Row="1"
+                           Grid.Column="1"
+                           Text="{Binding MylistCreator}" />
+
+                    <TextBlock Grid.Row="2"
+                           Grid.Column="0"
+                           Text="更新日：" />
+
+                    <TextBlock Grid.Row="2"
+                           Grid.Column="1"
+                           Text="{Binding MylistDate, StringFormat={}{0:yy/MM/dd HH:mm:ss}}" />
+
+                </Grid>
+
+                <TextBlock Text="{Binding MylistTitle}"
+                           Style="{StaticResource TitleTextBlock}" />
+
+            </DockPanel>
+
+        </DockPanel>
+
+        <ListBox ItemsSource="{Binding Views}"
+                 ItemContainerStyle="{StaticResource NicoVideoWindow.ItemContainerStyle}"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                 ScrollViewer.CanContentScroll="True"
+                 VirtualizingPanel.ScrollUnit="Pixel"
+                 HorizontalAlignment="Stretch">
+        </ListBox>
+
+    </DockPanel>
+</UserControl>

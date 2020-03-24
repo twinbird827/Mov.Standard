@@ -1,4 +1,5 @@
-﻿using Mov.Standard.Windows;
+﻿using Mov.Standard.Nico.Models;
+using Mov.Standard.Windows;
 using My.Wpf.Core;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,14 @@ namespace Mov.Standard.Nico.Workspaces
         public NicoMainViewModel()
         {
             Current = new NicoRankingViewModel();
+
+            NicoTemporaryModel.Instance.AddOnPropertyChanged(this, (sender, e) =>
+            {
+                if (e.PropertyName == nameof(NicoTemporaryModel.Count))
+                {
+                    TempCount = NicoTemporaryModel.Instance.Count;
+                }
+            });
         }
 
         public override string Title => Current.Title;
@@ -24,6 +33,13 @@ namespace Mov.Standard.Nico.Workspaces
             set { SetProperty(ref _Current, value, true); }
         }
         private NicoWorkspaceViewModel _Current;
+
+        public int TempCount
+        {
+            get { return _TempCount; }
+            set { SetProperty(ref _TempCount, value, true); }
+        }
+        private int _TempCount;
 
         /// <summary>
         /// ﾒﾆｭｰ処理
@@ -38,6 +54,9 @@ namespace Mov.Standard.Nico.Workspaces
                     break;
                 case NicoMenuType.Ranking:
                     Current = new NicoRankingViewModel();
+                    break;
+                case NicoMenuType.Temporary:
+                    Current = new NicoTemporaryViewModel();
                     break;
             }
         });

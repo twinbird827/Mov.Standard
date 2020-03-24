@@ -1,4 +1,8 @@
-﻿using Mov.Standard.Nico.Workspaces;
+﻿using Mov.Standard.Core.Databases;
+using Mov.Standard.Models;
+using Mov.Standard.Nico.Models;
+using Mov.Standard.Nico.Workspaces;
+using My.Wpf;
 using My.Wpf.Core;
 using My.Wpf.Windows;
 using System;
@@ -53,12 +57,57 @@ namespace Mov.Standard.Windows
 
         protected override bool DoClosing()
         {
+            Current?.Dispose();
+
             return false;
         }
 
         protected override async Task DoLoading(ProgressViewModel vm)
         {
-            await Task.Delay(1);
+            await vm.SetMessageAsync("設定ﾌｧｲﾙ読み込み中");
+
+            // Xmlﾌｧｲﾙ読み込み
+            await MovModel.Instance.LoadXmlAsync();
+
+            await vm.SetMessageAsync("ｱｶｳﾝﾄ情報読み込み中");
+
+            using (var command = DbUtil.GetControl())
+            {
+                var settings = await command.SelectTSetting();
+                var mail = settings.FirstOrDefault(s => s.Group == "setting" && s.Key == "mail")?.Value;
+                var pass = settings.FirstOrDefault(s => s.Group == "setting" && s.Key == "password")?.Value;
+                var change = false;
+                while (true)
+                {
+                    if (await Session.Instance.TryLoginAsync(mail, pass) != null)
+                    {
+                        break;
+                    }
+
+                    var nicovm = new NicoAccountViewModel(mail, pass);
+                    var nicowindow = new NicoAccountWindow(nicovm);
+
+                    nicowindow.ShowModalWindow();
+
+                    mail = nicovm.Mail;
+                    pass = nicovm.Password;
+                    change = true;
+                }
+
+                if (change)
+                {
+                    await command.BeginTransaction();
+                    await command.InsertTSetting("setting", "mail", mail);
+                    await command.InsertTSetting("setting", "password", pass);
+                    await command.Commit();
+                }
+            }
+
+            // 初回読取
+            await NicoTemporaryModel.Instance.LoadAsync();
+
+            // 画面遷移
+            OnClickMenu.Execute(MenuType.NicoNico);
         }
     }
 }

@@ -165,7 +165,7 @@ namespace Mov.Standard.Nico.Models
             return videos;
         }
 
-        public static async Task<IEnumerable<VideoModel>> GetTemporary()
+        public static async Task<IEnumerable<NicoVideoModel>> GetTemporary()
         {
             const string url = "http://www.nicovideo.jp/api/deflist/list";
 
@@ -342,7 +342,7 @@ namespace Mov.Standard.Nico.Models
             return null;
         }
 
-        public static async void SetThumbnail(NicoVideoViewModel vm)
+        public static async Task<BitmapImage> GetThumbnailAsync(NicoVideoViewModel vm)
         {
             var urls = new string[]
             {
@@ -351,7 +351,7 @@ namespace Mov.Standard.Nico.Models
                 $"{vm.ThumbnailUrl}",
             };
 
-            vm.Thumbnail = await GetThumbnailAsync(urls);
+            return await GetThumbnailAsync(urls);
         }
     }
 }

@@ -12,9 +12,9 @@ using System.Xml.Linq;
 
 namespace Mov.Standard.Nico.Models
 {
-    public class NicoListModel : BindableBase
+    public class NicoMylistModel : BindableBase
     {
-        private NicoListModel()
+        private NicoMylistModel()
         {
             Videos = new ObservableSynchronizedCollection<NicoVideoModel>();
         }
@@ -70,13 +70,6 @@ namespace Mov.Standard.Nico.Models
         }
         private string _ThumbnailUrl;
 
-        public BitmapImage Thumbnail
-        {
-            get { return _Thumbnail; }
-            set { SetProperty(ref _Thumbnail, value); }
-        }
-        private BitmapImage _Thumbnail;
-
         public DateTime MylistDate
         {
             get { return _MylistDate; }
@@ -91,13 +84,13 @@ namespace Mov.Standard.Nico.Models
         }
         private ObservableSynchronizedCollection<NicoVideoModel> _Videos;
 
-        public static async Task<NicoListModel> CreateAsync(string value, string orderby)
+        public static async Task<NicoMylistModel> CreateAsync(string value, string orderby)
         {
-            var m = new NicoListModel();
+            var m = new NicoMylistModel();
             return await m.GetInstanceAsync(value, orderby);
         }
 
-        private async Task<NicoListModel> GetInstanceAsync(string value, string orderby)
+        private async Task<NicoMylistModel> GetInstanceAsync(string value, string orderby)
         {
             var listid = NicoUtil.ToNicolistId(value);
 
@@ -144,9 +137,6 @@ namespace Mov.Standard.Nico.Models
                     "nico-numbers-mylist",
                     "nico-numbers-res"
                 ));
-
-            // TODO 取得できていない項目の取得
-            // TODO ｻﾑﾈｲﾙの取得
 
             Videos.AddRange(videos);
         }

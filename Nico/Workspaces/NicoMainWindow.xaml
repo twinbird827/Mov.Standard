@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Mov.Standard.Nico.Workspaces"
+             xmlns:usercontrol="clr-namespace:My.Wpf.UserControls;assembly=My.Wpf"
              mc:Ignorable="d">
     <UserControl.Resources>
         <DataTemplate DataType="{x:Type local:NicoWorkspaceViewModel}">
@@ -11,10 +12,24 @@
         </DataTemplate>
 
     </UserControl.Resources>
-    <Grid>
-        <ContentPresenter Margin="3"
-                              Content="{Binding Current}" />
 
+    <DockPanel>
 
-    </Grid>
+        <StackPanel DockPanel.Dock="Left">
+
+            <usercontrol:IconPacksButton Command="{Binding OnClickMenu}"
+                                         CommandParameter="{x:Static local:NicoMenuType.Ranking}"
+                                         Kind="Crown"
+                                         Text="Ranking" />
+
+            <usercontrol:IconPacksButton Command="{Binding OnClickMenu}"
+                                         CommandParameter="{x:Static local:NicoMenuType.Temporary}"
+                                         Kind="Bookmark"
+                                         Text="{Binding TempCount, StringFormat=Temp( {0} )}" />
+
+        </StackPanel>
+        
+        <ContentPresenter Content="{Binding Current}" />
+
+    </DockPanel>
 </UserControl>

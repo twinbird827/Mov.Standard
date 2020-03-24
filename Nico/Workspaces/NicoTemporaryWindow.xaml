@@ -1,10 +1,12 @@
-﻿<UserControl x:Class="Mov.Standard.Nico.Workspaces.NicoRankingWindow"
+﻿<UserControl x:Class="Mov.Standard.Nico.Workspaces.NicoTemporaryWindow"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Mov.Standard.Nico.Workspaces"
              xmlns:components="clr-namespace:Mov.Standard.Nico.Components"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:properties="clr-namespace:Mov.Standard.Properties"
              mc:Ignorable="d">
     <UserControl.Resources>
 
@@ -13,24 +15,26 @@
         </DataTemplate>
 
     </UserControl.Resources>
-    
+
     <DockPanel>
 
         <StackPanel DockPanel.Dock="Top"
                     Style="{StaticResource HorizontalStackPanel}">
 
-            <ComboBox Style="{StaticResource DefaultComboBox}"
-                      ItemsSource="{Binding Genres}"
-                      SelectedItem="{Binding SelectedGenre}" />
+            <Button Style="{StaticResource DefaultButton}" 
+                            Command="{Binding OnClickAdd}"
+                            Content="{iconPacks:Material Kind=PlusCircle}"
+                            ToolTip="{x:Static properties:Resources.L_IconSearch}" />
 
-            <ComboBox Style="{StaticResource DefaultComboBox}"
-                      ItemsSource="{Binding Periods}"
-                      SelectedItem="{Binding SelectedPeriod}" />
+            <Button Style="{StaticResource DefaultButton}" 
+                            Command="{Binding OnClickDelete}"
+                            Content="{iconPacks:Material Kind=MinusCircle}"
+                            ToolTip="{x:Static properties:Resources.L_IconDelete}" />
 
         </StackPanel>
-        
+
         <ListBox ItemsSource="{Binding Views}"
-                 ItemContainerStyle="{StaticResource NicoVideoWindow.ItemContainerStyle}"
+                 ItemContainerStyle="{StaticResource NicoTemporary.NicoVideoWindow.ItemContainerStyle}"
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                  ScrollViewer.CanContentScroll="True"
                  VirtualizingPanel.ScrollUnit="Pixel"

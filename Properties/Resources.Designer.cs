@@ -61,6 +61,33 @@ namespace Mov.Standard.Properties {
         }
         
         /// <summary>
+        ///   追加 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string L_IconAdd {
+            get {
+                return ResourceManager.GetString("L_IconAdd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   削除 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string L_IconDelete {
+            get {
+                return ResourceManager.GetString("L_IconDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   検索 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string L_IconSearch {
+            get {
+                return ResourceManager.GetString("L_IconSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   切断 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string My_Core_Net_ConnectionStatus_Closed {
