@@ -17,6 +17,7 @@
     <DockPanel>
 
         <StackPanel DockPanel.Dock="Top"
+                    Background="Aqua"
                     Style="{StaticResource HorizontalStackPanel}">
 
             <ComboBox Style="{StaticResource DefaultComboBox}"

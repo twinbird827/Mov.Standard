@@ -69,10 +69,15 @@ namespace Mov.Standard.Windows
             // Xmlﾌｧｲﾙ読み込み
             await MovModel.Instance.LoadXmlAsync();
 
-            await vm.SetMessageAsync("ｱｶｳﾝﾄ情報読み込み中");
-
             using (var command = DbUtil.GetControl())
             {
+                await vm.SetMessageAsync("ﾃﾞｰﾀﾍﾞｰｽﾌｧｲﾙ読み込み中");
+
+                // Xmlﾌｧｲﾙ読み込み
+                await command.InitializeDatabase();
+
+                await vm.SetMessageAsync("ｱｶｳﾝﾄ情報読み込み中");
+
                 var settings = await command.SelectTSetting();
                 var mail = settings.FirstOrDefault(s => s.Group == "setting" && s.Key == "mail")?.Value;
                 var pass = settings.FirstOrDefault(s => s.Group == "setting" && s.Key == "password")?.Value;

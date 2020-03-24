@@ -41,6 +41,16 @@ namespace Mov.Standard.Nico.Workspaces
 
                 Reload();
             };
+
+            Disposed += (sender, e) =>
+            {
+                _isLoading = true;
+
+                SelectedGenre = null;
+                SelectedPeriod = null;
+                Genres.Clear();
+                Periods.Clear();
+            };
         }
 
         public override string Title => "Ranking";

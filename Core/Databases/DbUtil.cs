@@ -42,10 +42,10 @@ namespace Mov.Standard.Core.Databases
 
             sql.Clear();
             sql.AppendLine($"CREATE TABLE IF NOT EXISTS t_setting (");
-            sql.AppendLine($"    group       TEXT    NOT NULL,");
-            sql.AppendLine($"    key         TEXT    NOT NULL,");
+            sql.AppendLine($"    key1        TEXT    NOT NULL,");
+            sql.AppendLine($"    key2        TEXT    NOT NULL,");
             sql.AppendLine($"    value       TEXT    NOT NULL,");
-            sql.AppendLine($"PRIMARY KEY (group, key)");
+            sql.AppendLine($"PRIMARY KEY (key1, key2)");
             sql.AppendLine($")");
 
             await command.ExecuteNonQueryAsync(sql.ToString());

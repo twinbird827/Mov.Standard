@@ -17,7 +17,7 @@ namespace Mov.Standard.Core.Databases
             var sql = new StringBuilder();
 
             sql.Clear();
-            sql.AppendLine($"SELECT group, key, value FROM t_setting");
+            sql.AppendLine($"SELECT key1, key2, value FROM t_setting");
 
             using (var reader = await command.ExecuteReaderAsync(sql.ToString()))
             {
@@ -30,7 +30,7 @@ namespace Mov.Standard.Core.Databases
             var sql = new StringBuilder();
 
             sql.Clear();
-            sql.AppendLine($"INSERT INTO t_setting (group, key, value) VALUES (?, ?, ?)");
+            sql.AppendLine($"INSERT INTO t_setting (key1, key2, value) VALUES (?, ?, ?)");
 
             var parameters = new DbParameter[]
             {
