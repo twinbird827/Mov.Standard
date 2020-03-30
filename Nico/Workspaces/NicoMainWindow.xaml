@@ -7,6 +7,7 @@
              xmlns:usercontrol="clr-namespace:My.Wpf.UserControls;assembly=My.Wpf"
              mc:Ignorable="d">
     <UserControl.Resources>
+        
         <DataTemplate DataType="{x:Type local:NicoWorkspaceViewModel}">
             <local:NicoWorkspaceWindow />
         </DataTemplate>

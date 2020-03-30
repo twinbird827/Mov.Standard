@@ -58,9 +58,22 @@ namespace Mov.Standard.Nico.Workspaces
                 case NicoMenuType.Temporary:
                     Current = new NicoTemporaryViewModel();
                     break;
+                case NicoMenuType.Mylist:
+                    Current = new NicoMylistViewModel();
+                    break;
+                case NicoMenuType.Favorite:
+                    Current = new NicoFavoriteViewModel();
+                    break;
+                case NicoMenuType.VideoHistory:
+                    Current = new NicoVideoHistoryViewModel();
+                    break;
             }
         });
         private ICommand _OnClickMenu;
 
+        public static void SetCurrent(NicoWorkspaceViewModel vm)
+        {
+            ((NicoMainViewModel)MainViewModel.Instance.Current).Current = vm;
+        }
     }
 }

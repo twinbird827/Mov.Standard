@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Mov.Standard.Nico.Components.NicoVideoWindow"
+﻿<UserControl x:Class="Mov.Standard.Nico.Components.NicoVideoHistoryDetailWindow"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -16,6 +16,9 @@
 
                 <TextBlock DockPanel.Dock="Left"
                            Text="{Binding Status}" />
+
+                <TextBlock DockPanel.Dock="Left"
+                           Text="{Binding Count, StringFormat=( {0} )}" />
 
                 <TextBlock Text="{Binding LengthSeconds}"
                            TextAlignment="Right" />

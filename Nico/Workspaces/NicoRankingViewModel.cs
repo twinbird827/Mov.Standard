@@ -19,7 +19,7 @@ namespace Mov.Standard.Nico.Workspaces
         {
             Videos = new ObservableSynchronizedCollection<NicoVideoModel>();
             Views = Videos.ToSyncedSynchronizationContextCollection(
-                video => new NicoVideoViewModel(video),
+                video => new NicoVideoDetailViewModel(video),
                 System.Threading.SynchronizationContext.Current
             );
 
@@ -90,12 +90,12 @@ namespace Mov.Standard.Nico.Workspaces
         }
         public ObservableSynchronizedCollection<NicoVideoModel> _Videos;
 
-        public SynchronizationContextCollection<NicoVideoViewModel> Views
+        public SynchronizationContextCollection<NicoVideoDetailViewModel> Views
         {
             get { return _Views; }
             set { SetProperty(ref _Views, value); }
         }
-        private SynchronizationContextCollection<NicoVideoViewModel> _Views;
+        private SynchronizationContextCollection<NicoVideoDetailViewModel> _Views;
 
         private bool _isLoading = true;
 

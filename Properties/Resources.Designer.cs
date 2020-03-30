@@ -88,6 +88,51 @@ namespace Mov.Standard.Properties {
         }
         
         /// <summary>
+        ///   DEL に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Mov_Standard_Models_VideoStatus_Delete {
+            get {
+                return ResourceManager.GetString("Mov_Standard_Models_VideoStatus_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   FAV に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Mov_Standard_Models_VideoStatus_Favorite {
+            get {
+                return ResourceManager.GetString("Mov_Standard_Models_VideoStatus_Favorite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   NEW に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Mov_Standard_Models_VideoStatus_New {
+            get {
+                return ResourceManager.GetString("Mov_Standard_Models_VideoStatus_New", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Mov_Standard_Models_VideoStatus_None {
+            get {
+                return ResourceManager.GetString("Mov_Standard_Models_VideoStatus_None", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   SEE に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Mov_Standard_Models_VideoStatus_See {
+            get {
+                return ResourceManager.GetString("Mov_Standard_Models_VideoStatus_See", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   切断 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string My_Core_Net_ConnectionStatus_Closed {

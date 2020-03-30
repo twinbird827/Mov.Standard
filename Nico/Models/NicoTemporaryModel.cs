@@ -33,5 +33,10 @@ namespace Mov.Standard.Nico.Models
             Videos.AddRange(await NicoUtil.GetTemporary());
             Count = Videos.Count;
         }
+
+        public bool IsTemporary(string url)
+        {
+            return Videos.Any(video => video.VideoId == NicoUtil.ToVideoId(url));
+        }
     }
 }

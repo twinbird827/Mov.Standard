@@ -1,7 +1,9 @@
 ﻿using Mov.Standard.Models;
 using Mov.Standard.Nico.Components;
 using Mov.Standard.Nico.Models;
+using Mov.Standard.Windows;
 using My.Wpf.Core;
+using Notifications.Wpf;
 using StatefulModel;
 using System;
 using System.Collections.Generic;
@@ -107,23 +109,20 @@ namespace Mov.Standard.Nico.Workspaces
         }
         private DateTime _MylistDate = default(DateTime);
 
-        public SynchronizationContextCollection<NicoVideoViewModel> Views
+        public SynchronizationContextCollection<NicoVideoDetailViewModel> Views
         {
             get { return _Views; }
             set { SetProperty(ref _Views, value); }
         }
-        private SynchronizationContextCollection<NicoVideoViewModel> _Views;
+        private SynchronizationContextCollection<NicoVideoDetailViewModel> _Views;
 
         public bool IsCreatorVisible => Views.Any();
 
-        /// <summary>
-        /// 検索処理
-        /// </summary>
-        public ICommand OnSearch
+        public ICommand OnClickSearch
         {
             get
             {
-                return _OnSearch = _OnSearch ?? new RelayCommand(async _ =>
+                return _OnClickSearch = _OnClickSearch ?? new RelayCommand(async _ =>
                 {
                     // 入力値をﾓﾃﾞﾙにｾｯﾄ
                     Source = await NicoMylistModel.CreateAsync(Text, SelectedOrder.Value);
@@ -139,7 +138,7 @@ namespace Mov.Standard.Nico.Workspaces
                     Views.Clear();
                     Views.Dispose();
                     Views = Source.Videos.ToSyncedSynchronizationContextCollection(
-                        video => new NicoVideoViewModel(video),
+                        video => new NicoVideoDetailViewModel(video),
                         System.Threading.SynchronizationContext.Current
                     );
 
@@ -151,7 +150,41 @@ namespace Mov.Standard.Nico.Workspaces
                 });
             }
         }
-        public ICommand _OnSearch;
+        public ICommand _OnClickSearch;
+
+        public ICommand OnClickAdd
+        {
+            get
+            {
+                return _OnClickAdd = _OnClickAdd ?? new RelayCommand(async _ =>
+                {
+                    await NicoFavoriteModel.Instance.AddFavorite(Text);
+
+                    MainViewModel.Instance.ShowToast("追加しました。", NotificationType.Information);
+                },
+                _ => {
+                    return IsCreatorVisible && !NicoFavoriteModel.Instance.Exists(Text);
+                });
+            }
+        }
+        public ICommand _OnClickAdd;
+
+        public ICommand OnClickDelete
+        {
+            get
+            {
+                return _OnClickDelete = _OnClickDelete ?? new RelayCommand(async _ =>
+                {
+                    await NicoFavoriteModel.Instance.DeleteFavorite(Text);
+
+                    MainViewModel.Instance.ShowToast("削除しました。", NotificationType.Information);
+                },
+                _ => {
+                    return NicoFavoriteModel.Instance.Exists(Text);
+                });
+            }
+        }
+        public ICommand _OnClickDelete;
 
     }
 }

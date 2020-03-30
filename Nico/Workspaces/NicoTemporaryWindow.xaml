@@ -10,8 +10,8 @@
              mc:Ignorable="d">
     <UserControl.Resources>
 
-        <DataTemplate DataType="{x:Type components:NicoVideoViewModel}">
-            <components:NicoVideoWindow />
+        <DataTemplate DataType="{x:Type components:NicoVideoDetailViewModel}">
+            <components:NicoVideoDetailWindow />
         </DataTemplate>
 
     </UserControl.Resources>
@@ -24,7 +24,7 @@
             <Button Style="{StaticResource DefaultButton}" 
                             Command="{Binding OnClickAdd}"
                             Content="{iconPacks:Material Kind=PlusCircle}"
-                            ToolTip="{x:Static properties:Resources.L_IconSearch}" />
+                            ToolTip="{x:Static properties:Resources.L_IconAdd}" />
 
             <Button Style="{StaticResource DefaultButton}" 
                             Command="{Binding OnClickDelete}"

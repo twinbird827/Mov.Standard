@@ -12,6 +12,12 @@ namespace Mov.Standard.Nico.Workspaces
 
         Ranking,
 
-        Temporary
+        Mylist,
+
+        Favorite,
+
+        VideoHistory,
+
+        Temporary,
     }
 }

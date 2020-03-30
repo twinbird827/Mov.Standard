@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using System.Windows.Input;
@@ -14,9 +15,9 @@ using System.Windows.Media.Imaging;
 
 namespace Mov.Standard.Nico.Components
 {
-    public class NicoVideoViewModel : BindableBase
+    public class NicoVideoDetailViewModel : BindableBase
     {
-        public NicoVideoViewModel(NicoVideoModel source)
+        public NicoVideoDetailViewModel(NicoVideoModel source)
         {
             Source = source;
 
@@ -31,7 +32,15 @@ namespace Mov.Standard.Nico.Components
             LengthSeconds = Source.LengthSeconds;
             ThumbnailUrl = Source.ThumbnailUrl;
             Username = Source.Username;
-            Status = Source.Status;
+            Status = Source.Status == VideoStatus.Delete
+                ? VideoStatus.Delete
+                : NicoVideoHistoryModel.Instance.IsSee(VideoId)
+                ? VideoStatus.See
+                : NicoVideoHistoryModel.Instance.IsNew(VideoId)
+                ? VideoStatus.New
+                : NicoTemporaryModel.Instance.IsTemporary(VideoId)
+                ? VideoStatus.Favorite
+                : VideoStatus.None;
 
             Source.AddOnPropertyChanged(this, (sender, e) =>
             {
@@ -189,15 +198,24 @@ namespace Mov.Standard.Nico.Components
 
         public event EventHandler Loaded;
 
-        public ICommand OnDoubleClick => _OnDoubleClick = _OnDoubleClick ?? new RelayCommand(_ =>
+        public ICommand OnDoubleClick => _OnDoubleClick = _OnDoubleClick ?? new RelayCommand(async _ =>
         {
             Process.Start(@"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe", VideoUrl);
 
             Source.Status = VideoStatus.See;
 
-            // TODO 視聴ﾘｽﾄに追加
+            // 視聴ﾘｽﾄに追加
+            await NicoVideoHistoryModel.Instance.AddVideoHistory(Source.VideoId, VideoStatus.See);
 
-            // TODO 詳細にあるidをtemporaryに追加
+            // 詳細にあるidをtemporaryに追加
+            foreach (var id in Regex.Matches(Description, @"(?<id>sm[\d]+)").OfType<Match>()
+                    .Select(m => m.Groups["id"].Value)
+                    .Where(tmp => !NicoVideoHistoryModel.Instance.IsSee(tmp))
+                    .Where(tmp => !NicoVideoHistoryModel.Instance.IsNew(tmp))
+                )
+            {
+                await NicoUtil.AddVideo(id);
+            }
         });
         private ICommand _OnDoubleClick;
 
@@ -212,7 +230,7 @@ namespace Mov.Standard.Nico.Components
 
         public ICommand OnDownload => _OnDownload = _OnDownload ?? new RelayCommand(_ =>
         {
-            Loaded?.Invoke(this, EventArgs.Empty);
+
         });
         private ICommand _OnDownload;
 

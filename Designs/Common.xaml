@@ -57,4 +57,18 @@
         </Setter>
     </Style>
 
+    <Style x:Key="NicoMylistWindow.ItemContainerStyle" TargetType="ListBoxItem" BasedOn="{StaticResource MetroListBoxItem}">
+        <Setter Property="behavior:FrameworkElementBehavior.DoubleClick" Value="{Binding OnDoubleClick}" />
+        <Setter Property="behavior:ControlBehavior.KeyDown" Value="{Binding OnKeyDown}" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="ContextMenu">
+            <Setter.Value>
+                <ContextMenu>
+                    <MenuItem Header="削除" 
+                              Command="{Binding OnFavoriteDel}" />
+                </ContextMenu>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>

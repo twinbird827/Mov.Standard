@@ -126,6 +126,21 @@
   <data name="L_IconSearch" xml:space="preserve">
     <value>検索</value>
   </data>
+  <data name="Mov_Standard_Models_VideoStatus_Delete" xml:space="preserve">
+    <value>DEL</value>
+  </data>
+  <data name="Mov_Standard_Models_VideoStatus_Favorite" xml:space="preserve">
+    <value>FAV</value>
+  </data>
+  <data name="Mov_Standard_Models_VideoStatus_New" xml:space="preserve">
+    <value>NEW</value>
+  </data>
+  <data name="Mov_Standard_Models_VideoStatus_None" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Mov_Standard_Models_VideoStatus_See" xml:space="preserve">
+    <value>SEE</value>
+  </data>
   <data name="My_Core_Net_ConnectionStatus_Closed" xml:space="preserve">
     <value>切断</value>
   </data>

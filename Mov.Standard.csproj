@@ -83,21 +83,39 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Core\Databases\DbFavoriteExtensions.cs" />
     <Compile Include="Core\Databases\DbSettingExtensions.cs" />
     <Compile Include="Core\Databases\DbUtil.cs" />
+    <Compile Include="Core\Databases\DbVideoHistoryExtensions.cs" />
+    <Compile Include="Core\Databases\TFavorite.cs" />
     <Compile Include="Core\Databases\TSetting.cs" />
+    <Compile Include="Core\Databases\TVideoHistory.cs" />
     <Compile Include="Core\MovConst.cs" />
     <Compile Include="Models\MovModel.cs" />
     <Compile Include="Nico\Components\NicoComboViewModel.cs" />
-    <Compile Include="Nico\Components\NicoVideoWindow.xaml.cs">
-      <DependentUpon>NicoVideoWindow.xaml</DependentUpon>
+    <Compile Include="Nico\Components\NicoMylistDetailViewModel.cs" />
+    <Compile Include="Nico\Components\NicoMylistDetailWindow.xaml.cs">
+      <DependentUpon>NicoMylistDetailWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Nico\Components\NicoVideoViewModel.cs" />
+    <Compile Include="Nico\Components\NicoVideoDetailWindow.xaml.cs">
+      <DependentUpon>NicoVideoDetailWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Nico\Components\NicoVideoDetailViewModel.cs" />
+    <Compile Include="Nico\Components\NicoVideoHistoryDetailViewModel.cs" />
+    <Compile Include="Nico\Components\NicoVideoHistoryDetailWindow.xaml.cs">
+      <DependentUpon>NicoVideoHistoryDetailWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Nico\Models\NicoFavoriteModel.cs" />
     <Compile Include="Nico\Models\NicoTemporaryModel.cs" />
+    <Compile Include="Nico\Models\NicoVideoHistoryModel.cs" />
     <Compile Include="Nico\Models\WebUtil.cs" />
     <Compile Include="Models\VideoStatus.cs" />
     <Compile Include="Nico\Models\NicoMylistModel.cs" />
     <Compile Include="Nico\Models\NicoVideoModel.cs" />
+    <Compile Include="Nico\Workspaces\NicoFavoriteViewModel.cs" />
+    <Compile Include="Nico\Workspaces\NicoFavoriteWindow.xaml.cs">
+      <DependentUpon>NicoFavoriteWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Nico\Workspaces\NicoMainViewModel.cs" />
     <Compile Include="Nico\Workspaces\NicoMainWindow.xaml.cs">
       <DependentUpon>NicoMainWindow.xaml</DependentUpon>
@@ -114,6 +132,10 @@
     <Compile Include="Nico\Workspaces\NicoTemporaryViewModel.cs" />
     <Compile Include="Nico\Workspaces\NicoTemporaryWindow.xaml.cs">
       <DependentUpon>NicoTemporaryWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Nico\Workspaces\NicoVideoHistoryViewModel.cs" />
+    <Compile Include="Nico\Workspaces\NicoVideoHistoryWindow.xaml.cs">
+      <DependentUpon>NicoVideoHistoryWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Nico\Workspaces\NicoWorkspaceViewModel.cs" />
     <Compile Include="Nico\Workspaces\NicoWorkspaceWindow.xaml.cs">
@@ -137,7 +159,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Nico\Components\NicoVideoWindow.xaml">
+    <Page Include="Nico\Components\NicoMylistDetailWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Nico\Components\NicoVideoDetailWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Nico\Components\NicoVideoHistoryDetailWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Nico\Workspaces\NicoFavoriteWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -154,6 +188,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Nico\Workspaces\NicoTemporaryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Nico\Workspaces\NicoVideoHistoryWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

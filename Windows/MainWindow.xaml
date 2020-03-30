@@ -46,8 +46,8 @@
             </StatusBar>
 
             <!-- ﾒﾆｭｰ -->
-            <StackPanel DockPanel.Dock="Top" 
-                        Style="{StaticResource HorizontalStackPanel}">
+            <StackPanel DockPanel.Dock="Left" 
+                        Style="{StaticResource DefaultStackPanel}">
 
                 <usercontrol:IconPacksButton Command="{Binding OnClickMenu}"
                                              CommandParameter="{x:Static local:MenuType.NicoNico}"

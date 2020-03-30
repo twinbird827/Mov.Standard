@@ -190,7 +190,9 @@ namespace Mov.Standard.Nico.Models
                 video.ThumbnailUrl = item["item_data"]["thumbnail_url"];
                 //video.LastResBody = item["item_data"]["last_res_body"];
                 //video.CommunityIcon = data["communityIcon"];
-                video.Status = item["item_data"]["deleted"] == "0" ? VideoStatus.New : VideoStatus.Delete;
+                video.Status = item["item_data"]["deleted"] != "0"
+                    ? VideoStatus.Delete
+                    : VideoStatus.None;
 
                 videos.Add(video);
             }
@@ -254,23 +256,40 @@ namespace Mov.Standard.Nico.Models
 
         public static async Task AddVideo(string id)
         {
-            var itemid = id;
-            var description = "";
-            var token = await GetToken();
-            var url = $"http://www.nicovideo.jp/api/deflist/add?item_type=0&item_id={itemid}&description={description}&token={token}";
+            if (!NicoTemporaryModel.Instance.Videos.Any(video => video.VideoId == id))
+            {
+                var itemid = id;
+                var description = "";
+                var token = await GetToken();
+                var url = $"http://www.nicovideo.jp/api/deflist/add?item_type=0&item_id={itemid}&description={description}&token={token}";
 
-            // 追加用URLを実行
-            var txt = await WebUtil.GetStringAsync(url, true);
+                // 追加用URLを実行
+                var txt = await WebUtil.GetStringAsync(url, true);
+
+                // ﾃﾝﾎﾟﾗﾘに追加
+                NicoTemporaryModel.Instance.Videos.Add(await GetVideo(id));
+
+                // 履歴に追加
+                await NicoVideoHistoryModel.Instance.AddVideoHistory(id, VideoStatus.New);
+            }
         }
 
         public static async Task DeleteVideo(string id)
         {
-            var itemid = await GetItemid(id);
-            var token = await GetToken();
-            var url = $"http://www.nicovideo.jp/api/deflist/delete?id_list[0][]={itemid}&token={token}";
+            if (NicoTemporaryModel.Instance.Videos.Any(video => video.VideoId == id))
+            {
+                var itemid = await GetItemid(id);
+                var token = await GetToken();
+                var url = $"http://www.nicovideo.jp/api/deflist/delete?id_list[0][]={itemid}&token={token}";
 
-            // 削除用URLを実行
-            var txt = await WebUtil.GetStringAsync(url, true);
+                // 削除用URLを実行
+                var txt = await WebUtil.GetStringAsync(url, true);
+
+                // ﾃﾝﾎﾟﾗﾘから削除
+                NicoTemporaryModel.Instance.Videos.Remove(
+                    NicoTemporaryModel.Instance.Videos.First(video => video.VideoId == id)
+                );
+            }
         }
 
         private static async Task<string> GetToken()
@@ -342,7 +361,7 @@ namespace Mov.Standard.Nico.Models
             return null;
         }
 
-        public static async Task<BitmapImage> GetThumbnailAsync(NicoVideoViewModel vm)
+        public static async Task<BitmapImage> GetThumbnailAsync(NicoVideoDetailViewModel vm)
         {
             var urls = new string[]
             {

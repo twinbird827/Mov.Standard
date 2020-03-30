@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Mov.Standard.Nico.Components
 {
     /// <summary>
-    /// NicoVideoWindow.xaml の相互作用ロジック
+    /// NicoVideoHistoryDetailWindow.xaml の相互作用ロジック
     /// </summary>
-    public partial class NicoVideoWindow : UserControl
+    public partial class NicoVideoHistoryDetailWindow : UserControl
     {
-        public NicoVideoWindow()
+        public NicoVideoHistoryDetailWindow()
         {
             InitializeComponent();
         }

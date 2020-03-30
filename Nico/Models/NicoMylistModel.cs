@@ -77,6 +77,13 @@ namespace Mov.Standard.Nico.Models
         }
         private DateTime _MylistDate = default(DateTime);
 
+        public DateTime ConfirmDate
+        {
+            get { return _ConfirmDate; }
+            set { SetProperty(ref _ConfirmDate, value); }
+        }
+        private DateTime _ConfirmDate = default(DateTime);
+
         public ObservableSynchronizedCollection<NicoVideoModel> Videos
         {
             get { return _Videos; }

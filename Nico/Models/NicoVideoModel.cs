@@ -142,14 +142,9 @@ namespace Mov.Standard.Nico.Models
         /// </summary>
         public VideoStatus Status
         {
-            get { return _Status; }
-            set { if (SetProperty(ref _Status, value)) OnPropertyChanged(nameof(StatusString)); }
+            get => _Status;
+            set => SetProperty(ref _Status, value);
         }
         private VideoStatus _Status = VideoStatus.None;
-
-        /// <summary>
-        /// ｽﾃｰﾀｽ文字
-        /// </summary>
-        public string StatusString => Status.GetLabel();
     }
 }

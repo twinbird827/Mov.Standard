@@ -76,6 +76,8 @@ namespace Mov.Standard.Windows
                 // Xmlﾌｧｲﾙ読み込み
                 await command.InitializeDatabase();
 
+                await NicoFavoriteModel.Instance.Initialize(command);
+
                 await vm.SetMessageAsync("ｱｶｳﾝﾄ情報読み込み中");
 
                 var settings = await command.SelectTSetting();

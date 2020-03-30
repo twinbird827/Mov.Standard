@@ -17,6 +17,18 @@
             <local:NicoTemporaryWindow />
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type local:NicoMylistViewModel}">
+            <local:NicoMylistWindow />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type local:NicoFavoriteViewModel}">
+            <local:NicoFavoriteWindow />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type local:NicoVideoHistoryViewModel}">
+            <local:NicoVideoHistoryWindow />
+        </DataTemplate>
+
     </UserControl.Resources>
 
     <Grid>
