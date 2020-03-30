@@ -78,6 +78,8 @@ namespace Mov.Standard.Windows
 
                 await NicoFavoriteModel.Instance.Initialize(command);
 
+                await NicoVideoHistoryModel.Instance.Initialize(command);
+
                 await vm.SetMessageAsync("ｱｶｳﾝﾄ情報読み込み中");
 
                 var settings = await command.SelectTSetting();

@@ -116,7 +116,7 @@ namespace Mov.Standard.Nico.Workspaces
         }
         private SynchronizationContextCollection<NicoVideoDetailViewModel> _Views;
 
-        public bool IsCreatorVisible => Views.Any();
+        public bool IsCreatorVisible => Views != null ? Views.Any() : false;
 
         public ICommand OnClickSearch
         {
@@ -135,8 +135,8 @@ namespace Mov.Standard.Nico.Workspaces
                     Thumbnail = await NicoUtil.GetThumbnailAsync(Source.ThumbnailUrl);
                     MylistDate = Source.MylistDate;
 
-                    Views.Clear();
-                    Views.Dispose();
+                    Views?.Clear();
+                    Views?.Dispose();
                     Views = Source.Videos.ToSyncedSynchronizationContextCollection(
                         video => new NicoVideoDetailViewModel(video),
                         System.Threading.SynchronizationContext.Current

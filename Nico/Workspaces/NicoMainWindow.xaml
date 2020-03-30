@@ -28,6 +28,21 @@
                                          Kind="Bookmark"
                                          Text="{Binding TempCount, StringFormat=Temp( {0} )}" />
 
+            <usercontrol:IconPacksButton Command="{Binding OnClickMenu}"
+                                         CommandParameter="{x:Static local:NicoMenuType.Mylist}"
+                                         Kind="Bookmark"
+                                         Text="Mylist" />
+
+            <usercontrol:IconPacksButton Command="{Binding OnClickMenu}"
+                                         CommandParameter="{x:Static local:NicoMenuType.Favorite}"
+                                         Kind="Bookmark"
+                                         Text="Favorite" />
+
+            <usercontrol:IconPacksButton Command="{Binding OnClickMenu}"
+                                         CommandParameter="{x:Static local:NicoMenuType.VideoHistory}"
+                                         Kind="Bookmark"
+                                         Text="VideoHistory" />
+
         </StackPanel>
         
         <ContentPresenter Content="{Binding Current}" />

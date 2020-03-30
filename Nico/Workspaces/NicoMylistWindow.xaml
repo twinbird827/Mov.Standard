@@ -28,8 +28,8 @@
 
             <DockPanel DockPanel.Dock="Top">
 
-                <StackPanel DockPanel.Dock="Right"
-                            Style="{StaticResource HorizontalStackPanel}">
+                <StackPanel DockPanel.Dock="Bottom"
+                            Style="{StaticResource HorizontalStackPanel.Right}">
 
                     <Button Style="{StaticResource DefaultButton}" 
                             Command="{Binding OnClickSearch}"

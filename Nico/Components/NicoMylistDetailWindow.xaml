@@ -4,11 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Mov.Standard.Nico.Components"
+             xmlns:behavior="clr-namespace:My.Wpf.Behaviors;assembly=My.Wpf"
+             behavior:FrameworkElementBehavior.Loaded="{Binding OnLoaded}"
              mc:Ignorable="d">
 
     <DockPanel>
 
         <Image DockPanel.Dock="Left"
+               Style="{StaticResource DefaultImage}"
                Source="{Binding Thumbnail}" />
 
         <TextBlock DockPanel.Dock="Top"

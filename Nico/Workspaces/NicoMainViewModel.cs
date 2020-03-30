@@ -23,6 +23,8 @@ namespace Mov.Standard.Nico.Workspaces
                     TempCount = NicoTemporaryModel.Instance.Count;
                 }
             });
+            TempCount = NicoTemporaryModel.Instance.Count;
+
         }
 
         public override string Title => Current.Title;

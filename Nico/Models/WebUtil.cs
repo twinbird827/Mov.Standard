@@ -1,5 +1,6 @@
 ﻿using Codeplex.Data;
 using Mov.Standard.Nico.Models;
+using My.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,7 +19,7 @@ namespace Mov.Standard.Nico.Models
         /// </summary>
         /// <param name="url">URL</param>
         /// <returns></returns>
-        public static async Task<string> GetStringAsync(string url, bool login)
+        public static async Task<string> GetStringAsync(string url, bool login, bool retry = true)
         {
             using (var handler = new HttpClientHandler())
             using (var client = new HttpClient(handler))
@@ -28,14 +29,32 @@ namespace Mov.Standard.Nico.Models
                     handler.CookieContainer = await Session.Instance.TryLoginAsync();
                 }
 
-                var txt = await client.GetStringAsync(url);
+                try
+                {
+                    var txt = await client.GetStringAsync(url);
+
+                    return txt;
+                }
+                catch (HttpRequestException ex)
+                {
+                    if (retry)
+                    {
+                        await Task.Delay(1000);
+
+                        return await GetStringAsync(url, login, false);
+                    }
+                    else
+                    {
+                        ServiceFactory.MessageService.Exception(ex);
+                        throw;
+                    }
+                }
 
                 //txt = txt.Replace("&copy;", "");
                 //txt = txt.Replace("&nbsp;", " ");
                 //txt = txt.Replace("&#x20;", " ");
                 //txt = txt.Replace("&", "&amp;");
 
-                return txt;
             }
         }
 

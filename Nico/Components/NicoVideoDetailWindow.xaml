@@ -15,7 +15,7 @@
             <DockPanel DockPanel.Dock="Bottom">
 
                 <TextBlock DockPanel.Dock="Left"
-                           Text="{Binding Status}" />
+                           Text="{Binding StatusString}" />
 
                 <TextBlock Text="{Binding LengthSeconds}"
                            TextAlignment="Right" />
@@ -34,7 +34,7 @@
         <DockPanel DockPanel.Dock="Bottom">
 
             <TextBlock DockPanel.Dock="Right"
-                       Text="{Binding StartDate, StringFormat={}{0:yy/MM/dd HH:mm:ss}}" 
+                       Text="{Binding StartTime, StringFormat={}{0:yy/MM/dd HH:mm:ss}}" 
                        Foreground="DarkRed"/>
 
             <StackPanel Orientation="Horizontal">

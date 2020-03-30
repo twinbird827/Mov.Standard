@@ -89,24 +89,26 @@ namespace Mov.Standard.Nico.Models
 
         public static string ToVideoId(string url)
         {
-            return url.Split('/').Last();
+            return CoreUtil.Nvl(url).Split('/').Last();
         }
 
         public static string ToNicolistId(string url)
         {
-            return url.Split('/').Last().Split('?').First();
+            return CoreUtil.Nvl(url).Split('/').Last().Split('?').First();
         }
 
         public static NicoVideoModel CreateVideoFromXml(XElement item, string view, string mylist, string comment)
         {
+            string tmp = string.Empty;
             try
             {
                 // 明細部読み込み
                 var descriptionString = item.Element("description").Value;
-                //descriptionString = descriptionString.Replace("&nbsp;", "&#x20;");
-                descriptionString = HttpUtility.HtmlDecode(descriptionString);
-                //descriptionString = descriptionString.Replace("&", "&amp;");
-                ////descriptionString = descriptionString.Replace("'", "&apos;");
+                descriptionString = descriptionString.Replace("&nbsp;", "&#x20;");
+                //descriptionString = HttpUtility.HtmlDecode(descriptionString);
+                descriptionString = descriptionString.Replace("&", "&amp;");
+                descriptionString = descriptionString.Replace("'", "&apos;");
+                tmp = descriptionString;
                 var desc = WebUtil.ToXml($"<root>{descriptionString}</root>");
 
                 var video = new NicoVideoModel()
@@ -139,6 +141,7 @@ namespace Mov.Standard.Nico.Models
             }
             catch (Exception ex)
             {
+                ServiceFactory.MessageService.Debug(tmp);
                 ServiceFactory.MessageService.Exception(ex);
                 throw;
             }
@@ -343,6 +346,7 @@ namespace Mov.Standard.Nico.Models
             }
             catch (Exception ex)
             {
+                ServiceFactory.MessageService.Debug(url);
                 ServiceFactory.MessageService.Exception(ex);
                 return null;
             }
@@ -363,11 +367,12 @@ namespace Mov.Standard.Nico.Models
 
         public static async Task<BitmapImage> GetThumbnailAsync(NicoVideoDetailViewModel vm)
         {
+            var url = vm.ThumbnailUrl.Replace(".M", "").Replace(".L", "");
             var urls = new string[]
             {
-                $"{vm.ThumbnailUrl}.L",
-                $"{vm.ThumbnailUrl}.M",
-                $"{vm.ThumbnailUrl}",
+                $"{url}.L",
+                $"{url}.M",
+                $"{url}",
             };
 
             return await GetThumbnailAsync(urls);
