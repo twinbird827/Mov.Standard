@@ -250,7 +250,16 @@ namespace Mov.Standard.Properties {
         }
         
         /// <summary>
-        ///   培養制御 に類似しているローカライズされた文字列を検索します。
+        ///   MP4 ファイル|.mp4|全ファイル|.* に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string S_Filter_Common_MP4 {
+            get {
+                return ResourceManager.GetString("S_Filter_Common_MP4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Mov.Standard に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string V_MainTitle {
             get {

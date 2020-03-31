@@ -163,7 +163,7 @@ namespace Mov.Standard.Nico.Workspaces
                     MainViewModel.Instance.ShowToast("追加しました。", NotificationType.Information);
                 },
                 _ => {
-                    return IsCreatorVisible && !NicoFavoriteModel.Instance.Exists(Text);
+                    return IsCreatorVisible && Source.MylistId == NicoUtil.ToNicolistId(Text) && !NicoFavoriteModel.Instance.Exists(Text);
                 });
             }
         }
@@ -180,7 +180,7 @@ namespace Mov.Standard.Nico.Workspaces
                     MainViewModel.Instance.ShowToast("削除しました。", NotificationType.Information);
                 },
                 _ => {
-                    return NicoFavoriteModel.Instance.Exists(Text);
+                    return Source.MylistId == NicoUtil.ToNicolistId(Text) && NicoFavoriteModel.Instance.Exists(Text);
                 });
             }
         }

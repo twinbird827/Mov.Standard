@@ -66,7 +66,7 @@ namespace Mov.Standard.Nico.Models
                     .Where(v => !NicoTemporaryModel.Instance.Videos.Any(tmp => tmp.VideoId == v.VideoId))
                 ))
             {
-                await NicoUtil.AddVideo(video.VideoId);
+                await NicoUtil.AddVideo(video);
             }
 
             using (var command = DbUtil.GetControl())

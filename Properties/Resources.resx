@@ -180,7 +180,10 @@
   <data name="S_Filter_Common_CSV_TSV" xml:space="preserve">
     <value>CSV ファイル|.csv|TAB 区切りファイル|.tsv|全ファイル|.*</value>
   </data>
+  <data name="S_Filter_Common_MP4" xml:space="preserve">
+    <value>MP4 ファイル|.mp4|全ファイル|.*</value>
+  </data>
   <data name="V_MainTitle" xml:space="preserve">
-    <value>培養制御</value>
+    <value>Mov.Standard</value>
   </data>
 </root>

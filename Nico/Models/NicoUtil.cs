@@ -1,6 +1,7 @@
 ﻿using Codeplex.Data;
 using Mov.Standard.Models;
 using Mov.Standard.Nico.Components;
+using Mov.Standard.Windows;
 using My.Core;
 using My.Core.Services;
 using System;
@@ -261,7 +262,15 @@ namespace Mov.Standard.Nico.Models
         {
             if (!NicoTemporaryModel.Instance.Videos.Any(video => video.VideoId == id))
             {
-                var itemid = id;
+                await AddVideo(await GetVideo(id));
+            }
+        }
+
+        public static async Task AddVideo(NicoVideoModel vm)
+        {
+            if (!NicoTemporaryModel.Instance.Videos.Any(video => video.VideoId == vm.VideoId))
+            {
+                var itemid = vm.VideoId;
                 var description = "";
                 var token = await GetToken();
                 var url = $"http://www.nicovideo.jp/api/deflist/add?item_type=0&item_id={itemid}&description={description}&token={token}";
@@ -270,10 +279,11 @@ namespace Mov.Standard.Nico.Models
                 var txt = await WebUtil.GetStringAsync(url, true);
 
                 // ﾃﾝﾎﾟﾗﾘに追加
-                NicoTemporaryModel.Instance.Videos.Add(await GetVideo(id));
+                NicoTemporaryModel.Instance.Videos.Add(vm);
 
                 // 履歴に追加
-                await NicoVideoHistoryModel.Instance.AddVideoHistory(id, VideoStatus.New);
+                await NicoVideoHistoryModel.Instance.AddVideoHistory(vm.VideoId, VideoStatus.New);
+                NicoTemporaryModel.Instance.Count += 1;
             }
         }
 
@@ -281,7 +291,15 @@ namespace Mov.Standard.Nico.Models
         {
             if (NicoTemporaryModel.Instance.Videos.Any(video => video.VideoId == id))
             {
-                var itemid = await GetItemid(id);
+                await DeleteVideo(NicoTemporaryModel.Instance.Videos.First(video => video.VideoId == id));
+            }
+        }
+
+        public static async Task DeleteVideo(NicoVideoModel vm)
+        {
+            if (NicoTemporaryModel.Instance.Videos.Any(video => video.VideoId == vm.VideoId))
+            {
+                var itemid = await GetItemid(vm.VideoId);
                 var token = await GetToken();
                 var url = $"http://www.nicovideo.jp/api/deflist/delete?id_list[0][]={itemid}&token={token}";
 
@@ -290,8 +308,9 @@ namespace Mov.Standard.Nico.Models
 
                 // ﾃﾝﾎﾟﾗﾘから削除
                 NicoTemporaryModel.Instance.Videos.Remove(
-                    NicoTemporaryModel.Instance.Videos.First(video => video.VideoId == id)
+                    NicoTemporaryModel.Instance.Videos.First(video => video.VideoId == vm.VideoId)
                 );
+                NicoTemporaryModel.Instance.Count -= 1;
             }
         }
 
@@ -376,6 +395,40 @@ namespace Mov.Standard.Nico.Models
             };
 
             return await GetThumbnailAsync(urls);
+        }
+
+        public static void Download(NicoVideoModel vm)
+        {
+            string path = ServiceFactory.MessageService.SelectedSaveFile(vm.Title, Properties.Resources.S_Filter_Common_MP4);
+
+            if (string.IsNullOrEmpty(path))
+            {
+                return;
+            }
+
+            MainViewModel.Instance.ShowProgress(async (progress) =>
+            {
+                using (var handler = new HttpClientHandler())
+                using (var client = new HttpClient(handler))
+                {
+                    client.Timeout = new TimeSpan(1, 0, 0);
+
+                    // ﾛｸﾞｲﾝｸｯｷｰ設定
+                    handler.CookieContainer = await Session.Instance.TryLoginAsync();
+
+                    // 対象動画にｼﾞｬﾝﾌﾟ
+                    var watchurl = $"http://www.nicovideo.jp/watch/{vm.VideoId}";
+                    await client.PostAsync(watchurl, null);
+
+                    // 動画URL全文を取得
+                    var flapiurl = $"http://flapi.nicovideo.jp/api/getflv/{vm.VideoId}";
+                    var flapibody = await client.GetStringAsync(flapiurl);
+                    var movieurl = Regex.Match(Uri.UnescapeDataString(flapibody), @"&url=.*").Value.Replace("&url=", "");
+                    var res = await client.SendAsync(new HttpRequestMessage(HttpMethod.Get, flapiurl));
+
+                    File.WriteAllBytes(path, await client.GetByteArrayAsync(movieurl));
+                }
+            });
         }
     }
 }

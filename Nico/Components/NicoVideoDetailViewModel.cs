@@ -230,7 +230,7 @@ namespace Mov.Standard.Nico.Components
 
         public ICommand OnDownload => _OnDownload = _OnDownload ?? new RelayCommand(_ =>
         {
-
+            NicoUtil.Download(Source);
         });
         private ICommand _OnDownload;
 
@@ -238,9 +238,7 @@ namespace Mov.Standard.Nico.Components
         {
             if (!NicoTemporaryModel.Instance.Videos.Any(video => video.VideoId == Source.VideoId))
             {
-                await NicoUtil.AddVideo(VideoId);
-                NicoTemporaryModel.Instance.Videos.Add(Source);
-                NicoTemporaryModel.Instance.Count += 1;
+                await NicoUtil.AddVideo(Source);
             }
         });
         private ICommand _OnAdd;
@@ -249,11 +247,7 @@ namespace Mov.Standard.Nico.Components
         {
             if (NicoTemporaryModel.Instance.Videos.Any(video => video.VideoId == Source.VideoId))
             {
-                await NicoUtil.DeleteVideo(VideoId);
-                NicoTemporaryModel.Instance.Videos.Remove(
-                    NicoTemporaryModel.Instance.Videos.First(video => video.VideoId == Source.VideoId)
-                );
-                NicoTemporaryModel.Instance.Count -= 1;
+                await NicoUtil.DeleteVideo(Source);
             }
         });
         private ICommand _OnDelete;

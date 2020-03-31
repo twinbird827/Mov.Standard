@@ -13,12 +13,12 @@ namespace Mov.Standard.Nico.Models
     {
         public static NicoTemporaryModel Instance { get; private set; } = new NicoTemporaryModel();
 
-        public ObservableSynchronizedCollection<NicoVideoModel> Videos
+        public SortedObservableCollection<NicoVideoModel, DateTime> Videos
         {
             get => _Videos;
             set => SetProperty(ref _Videos, value);
         }
-        public ObservableSynchronizedCollection<NicoVideoModel> _Videos;
+        public SortedObservableCollection<NicoVideoModel, DateTime> _Videos;
 
         public int Count
         {
@@ -29,8 +29,11 @@ namespace Mov.Standard.Nico.Models
 
         public async Task LoadAsync()
         {
-            Videos = new ObservableSynchronizedCollection<NicoVideoModel>();
-            Videos.AddRange(await NicoUtil.GetTemporary());
+            Videos = new SortedObservableCollection<NicoVideoModel, DateTime>(
+                await NicoUtil.GetTemporary(),
+                video => video.StartTime,
+                false
+            );
             Count = Videos.Count;
         }
 
