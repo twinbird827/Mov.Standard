@@ -2,6 +2,7 @@
 using Mov.Standard.Nico.Components;
 using Mov.Standard.Nico.Models;
 using My.Core;
+using StatefulModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,6 +19,7 @@ namespace Mov.Standard.Nico.Workspaces
             Loaded += async (sender, e) =>
             {
                 var histories = await NicoVideoHistoryModel.Instance.Histories
+                    .Where(history => history.Status == VideoStatus.See)
                     .GroupBy(history => history.VideoId)
                     .Select(group => new
                     {
@@ -29,18 +31,22 @@ namespace Mov.Standard.Nico.Workspaces
                     .Select(group => NicoVideoHistoryDetailViewModel.Create(group.VideoId, group.Date, group.Count))
                     .WhenAll();
 
-                Views = new ObservableCollection<NicoVideoHistoryDetailViewModel>(histories);
+                Views = new SortedObservableCollection<NicoVideoHistoryDetailViewModel, DateTime>(
+                    histories,
+                    view => view.LastDate,
+                    false
+                );
             };
         }
 
         public override string Title => "VideoHistory";
 
-        public ObservableCollection<NicoVideoHistoryDetailViewModel> Views
+        public SortedObservableCollection<NicoVideoHistoryDetailViewModel, DateTime> Views
         {
             get { return _Views; }
             set { SetProperty(ref _Views, value); }
         }
-        private ObservableCollection<NicoVideoHistoryDetailViewModel> _Views;
+        private SortedObservableCollection<NicoVideoHistoryDetailViewModel, DateTime> _Views;
 
     }
 }

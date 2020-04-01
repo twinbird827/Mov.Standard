@@ -29,7 +29,7 @@ namespace Mov.Standard.Nico.Components
             MylistCounter = Source.MylistCounter;
             CommentCounter = Source.CommentCounter;
             StartTime = Source.StartTime;
-            LengthSeconds = Source.LengthSeconds;
+            LengthSeconds = TimeSpan.FromSeconds(Source.LengthSeconds);
             ThumbnailUrl = Source.ThumbnailUrl;
             Username = Source.Username;
             Status = Source.Status == VideoStatus.Delete
@@ -68,7 +68,7 @@ namespace Mov.Standard.Nico.Components
                         StartTime = Source.StartTime;
                         break;
                     case nameof(LengthSeconds):
-                        LengthSeconds = Source.LengthSeconds;
+                        LengthSeconds = TimeSpan.FromSeconds(Source.LengthSeconds);
                         break;
                     case nameof(ThumbnailUrl):
                         ThumbnailUrl = Source.ThumbnailUrl;
@@ -150,12 +150,12 @@ namespace Mov.Standard.Nico.Components
         }
         private DateTime _StartTime = default(DateTime);
 
-        public long LengthSeconds
+        public TimeSpan LengthSeconds
         {
             get { return _LengthSeconds; }
             set { SetProperty(ref _LengthSeconds, value); }
         }
-        private long _LengthSeconds = default(long);
+        private TimeSpan _LengthSeconds = TimeSpan.Zero;
 
         public string ThumbnailUrl
         {
