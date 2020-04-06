@@ -20,14 +20,11 @@ namespace Mov.Standard.Nico.Workspaces
     {
         public NicoMylistViewModel()
         {
-            Loaded += (sender, e) =>
-            {
-                Orders = new ObservableCollection<ComboboxItemModel>(
-                    MovModel.Instance.Combos
-                        .Where(combo => combo.Group == "mylist_order")
-                );
-                SelectedOrder = Orders.First();
-            };
+            Orders = new ObservableCollection<ComboboxItemModel>(
+                MovModel.Instance.Combos
+                    .Where(combo => combo.Group == "mylist_order")
+            );
+            SelectedOrder = Orders.First();
         }
 
         public override string Title => "Mylist";

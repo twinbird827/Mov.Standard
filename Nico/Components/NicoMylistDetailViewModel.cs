@@ -60,7 +60,7 @@ namespace Mov.Standard.Nico.Components
         public string MylistId
         {
             get { return _MylistId; }
-            set { SetProperty(ref _MylistId, value); OnPropertyChanged(nameof(MylistUrl)); }
+            set { SetProperty(ref _MylistId, NicoUtil.ToNicolistId(value)); OnPropertyChanged(nameof(MylistUrl)); }
         }
         private string _MylistId = null;
 

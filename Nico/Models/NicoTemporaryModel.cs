@@ -32,7 +32,7 @@ namespace Mov.Standard.Nico.Models
             Videos = new SortedObservableCollection<NicoVideoModel, DateTime>(
                 await NicoUtil.GetTemporary(),
                 video => video.StartTime,
-                false
+                true
             );
             Count = Videos.Count;
         }

@@ -97,7 +97,7 @@ namespace Mov.Standard.Nico.Components
         public string VideoId
         {
             get { return _VideoId; }
-            set { SetProperty(ref _VideoId, value); OnPropertyChanged(nameof(VideoUrl)); }
+            set { SetProperty(ref _VideoId, NicoUtil.ToVideoId(value)); OnPropertyChanged(nameof(VideoUrl)); }
         }
         private string _VideoId = null;
 
