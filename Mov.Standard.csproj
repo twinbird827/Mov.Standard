@@ -49,6 +49,12 @@
     <Reference Include="MahApps.Metro.IconPacks.Material, Version=3.0.0.0, Culture=neutral, PublicKeyToken=0c0d510f9915137a, processorArchitecture=MSIL">
       <HintPath>packages\MahApps.Metro.IconPacks.Material.3.4.0\lib\net46\MahApps.Metro.IconPacks.Material.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\WindowsAPICodePack-Core.1.1.2\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack.Shell, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\WindowsAPICodePack-Shell.1.1.1\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
+    </Reference>
     <Reference Include="Notifications.Wpf, Version=0.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Notifications.Wpf.0.1.1\lib\net461\Notifications.Wpf.dll</HintPath>
     </Reference>
@@ -137,16 +143,16 @@
     <Compile Include="Nico\Workspaces\NicoVideoHistoryWindow.xaml.cs">
       <DependentUpon>NicoVideoHistoryWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Nico\Workspaces\NicoWorkspaceViewModel.cs" />
-    <Compile Include="Nico\Workspaces\NicoWorkspaceWindow.xaml.cs">
-      <DependentUpon>NicoWorkspaceWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Nuget\DynamicJson.cs" />
     <Compile Include="Models\VideoModel.cs" />
     <Compile Include="Nico\Models\Session.cs" />
     <Compile Include="Nico\Models\NicoUtil.cs" />
     <Compile Include="Windows\MainViewModel.cs" />
     <Compile Include="Windows\MenuType.cs" />
+    <Compile Include="Windows\MenuViewModel.cs" />
+    <Compile Include="Windows\MenuWindow.xaml.cs">
+      <DependentUpon>MenuWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\NicoAccountViewModel.cs" />
     <Compile Include="Windows\NicoAccountWindow.xaml.cs">
       <DependentUpon>NicoAccountWindow.xaml</DependentUpon>
@@ -195,10 +201,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Nico\Workspaces\NicoWorkspaceWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Windows\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -211,6 +213,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Windows\MenuWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\NicoAccountWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

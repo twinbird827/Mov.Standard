@@ -37,6 +37,13 @@ namespace Mov.Standard.Windows
         }
         private WorkspaceViewModel _Current;
 
+        public MenuViewModel Menu
+        {
+            get { return _Menu; }
+            set { SetProperty(ref _Menu, value, true); }
+        }
+        private MenuViewModel _Menu;
+
         /// <summary>
         /// ﾒﾆｭｰ処理
         /// </summary>
@@ -49,7 +56,7 @@ namespace Mov.Standard.Windows
                 case MenuType.Settings:
                     break;
                 case MenuType.NicoNico:
-                    Current = new NicoMainViewModel();
+                    Menu = new NicoMainViewModel();
                     break;
             }
         });

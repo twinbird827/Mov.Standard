@@ -58,5 +58,10 @@ namespace Mov.Standard.Nico.Models
         {
             return Histories.Any(history => BeginDate < history.Date && history.VideoId == NicoUtil.ToVideoId(url) && history.Status == VideoStatus.New);
         }
+
+        public bool Exists(string url)
+        {
+            return Histories.Any(history => history.VideoId == NicoUtil.ToVideoId(url));
+        }
     }
 }

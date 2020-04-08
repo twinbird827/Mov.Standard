@@ -53,7 +53,10 @@
                                              CommandParameter="{x:Static local:MenuType.NicoNico}"
                                              Kind="Tram"
                                              Text="NicoNico" />
-                
+
+                <!-- ｺﾝﾃﾝﾂ -->
+                <ContentPresenter Content="{Binding Menu}" />
+
             </StackPanel>
             
             <!-- ｺﾝﾃﾝﾂ -->

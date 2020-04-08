@@ -127,12 +127,12 @@ namespace Mov.Standard.Nico.Components
         public ICommand OnDoubleClick => _OnDoubleClick = _OnDoubleClick ?? new RelayCommand(_ =>
         {
             // 検索画面を出す
-            var vm = new Workspaces.NicoMylistViewModel();
+            var vm = new NicoMylistViewModel();
 
             vm.Text = Source.MylistId;
             vm.OnClickSearch.Execute(null);
 
-            NicoMainViewModel.SetCurrent(vm);
+            MainViewModel.Instance.Current = vm;
         });
         public ICommand _OnDoubleClick;
 

@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Mov.Standard.Windows.WorkspaceWindow"
+﻿<UserControl x:Class="Mov.Standard.Windows.MenuWindow"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -11,24 +11,8 @@
 
     <UserControl.Resources>
 
-        <DataTemplate DataType="{x:Type nico:NicoRankingViewModel}">
-            <nico:NicoRankingWindow />
-        </DataTemplate>
-
-        <DataTemplate DataType="{x:Type nico:NicoTemporaryViewModel}">
-            <nico:NicoTemporaryWindow />
-        </DataTemplate>
-
-        <DataTemplate DataType="{x:Type nico:NicoMylistViewModel}">
-            <nico:NicoMylistWindow />
-        </DataTemplate>
-
-        <DataTemplate DataType="{x:Type nico:NicoFavoriteViewModel}">
-            <nico:NicoFavoriteWindow />
-        </DataTemplate>
-
-        <DataTemplate DataType="{x:Type nico:NicoVideoHistoryViewModel}">
-            <nico:NicoVideoHistoryWindow />
+        <DataTemplate DataType="{x:Type nico:NicoMainViewModel}">
+            <nico:NicoMainWindow />
         </DataTemplate>
 
     </UserControl.Resources>

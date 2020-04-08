@@ -1,6 +1,7 @@
 ﻿using Mov.Standard.Models;
 using Mov.Standard.Nico.Components;
 using Mov.Standard.Nico.Models;
+using Mov.Standard.Windows;
 using My.Core;
 using StatefulModel;
 using System;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Mov.Standard.Nico.Workspaces
 {
-    public class NicoVideoHistoryViewModel : NicoWorkspaceViewModel
+    public class NicoVideoHistoryViewModel : WorkspaceViewModel
     {
         public NicoVideoHistoryViewModel()
         {

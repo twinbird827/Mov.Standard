@@ -6,46 +6,32 @@
              xmlns:local="clr-namespace:Mov.Standard.Nico.Workspaces"
              xmlns:usercontrol="clr-namespace:My.Wpf.UserControls;assembly=My.Wpf"
              mc:Ignorable="d">
-    <UserControl.Resources>
-        
-        <DataTemplate DataType="{x:Type local:NicoWorkspaceViewModel}">
-            <local:NicoWorkspaceWindow />
-        </DataTemplate>
+    <StackPanel Style="{StaticResource DefaultStackPanel}">
 
-    </UserControl.Resources>
-
-    <DockPanel>
-
-        <StackPanel DockPanel.Dock="Left">
-
-            <usercontrol:IconPacksButton Command="{Binding OnClickMenu}"
+        <usercontrol:IconPacksButton Command="{Binding OnClickMenu}"
                                          CommandParameter="{x:Static local:NicoMenuType.Ranking}"
                                          Kind="Crown"
                                          Text="Ranking" />
 
-            <usercontrol:IconPacksButton Command="{Binding OnClickMenu}"
+        <usercontrol:IconPacksButton Command="{Binding OnClickMenu}"
                                          CommandParameter="{x:Static local:NicoMenuType.Temporary}"
                                          Kind="Bookmark"
                                          Text="{Binding TempCount, StringFormat=Temp( {0} )}" />
 
-            <usercontrol:IconPacksButton Command="{Binding OnClickMenu}"
+        <usercontrol:IconPacksButton Command="{Binding OnClickMenu}"
                                          CommandParameter="{x:Static local:NicoMenuType.Mylist}"
                                          Kind="Bookmark"
                                          Text="Mylist" />
 
-            <usercontrol:IconPacksButton Command="{Binding OnClickMenu}"
+        <usercontrol:IconPacksButton Command="{Binding OnClickMenu}"
                                          CommandParameter="{x:Static local:NicoMenuType.Favorite}"
                                          Kind="Bookmark"
                                          Text="Favorite" />
 
-            <usercontrol:IconPacksButton Command="{Binding OnClickMenu}"
+        <usercontrol:IconPacksButton Command="{Binding OnClickMenu}"
                                          CommandParameter="{x:Static local:NicoMenuType.VideoHistory}"
                                          Kind="Bookmark"
                                          Text="VideoHistory" />
 
-        </StackPanel>
-        
-        <ContentPresenter Content="{Binding Current}" />
-
-    </DockPanel>
+    </StackPanel>
 </UserControl>

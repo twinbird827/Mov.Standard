@@ -6,23 +6,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace Mov.Standard.Nico.Workspaces
+namespace Mov.Standard.Windows
 {
-    public abstract class NicoWorkspaceViewModel : BindableBase
+    public abstract class MenuViewModel : BindableBase
     {
-        protected NicoWorkspaceViewModel()
-        {
-            
-        }
-
-        public abstract string Title { get; }
-
         /// <summary>
         /// 画面表示時の処理
         /// </summary>
-        public ICommand OnLoaded =>
-            _OnLoaded = _OnLoaded ?? new RelayCommand(
-        _ =>
+        public ICommand OnLoaded => _OnLoaded = _OnLoaded ?? new RelayCommand(_ =>
         {
             Loaded?.Invoke(this, EventArgs.Empty);
         });
@@ -32,6 +23,5 @@ namespace Mov.Standard.Nico.Workspaces
         /// 画面表示時に発生するｲﾍﾞﾝﾄ
         /// </summary>
         public event EventHandler Loaded;
-
     }
 }

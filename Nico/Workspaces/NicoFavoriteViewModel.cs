@@ -15,7 +15,7 @@ using System.Windows.Input;
 
 namespace Mov.Standard.Nico.Workspaces
 {
-    public class NicoFavoriteViewModel : NicoWorkspaceViewModel
+    public class NicoFavoriteViewModel : WorkspaceViewModel
     {
         public NicoFavoriteViewModel()
         {
@@ -39,7 +39,8 @@ namespace Mov.Standard.Nico.Workspaces
             using (var vm = new WpfMessageInputViewModel(
                     "",
                     "追加する Url を入力してください。",
-                    "Url"
+                    "Url",
+                    true
                 ))
             {
                 var dialog = new WpfMessageInputWindow(vm);

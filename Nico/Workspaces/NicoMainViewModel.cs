@@ -10,11 +10,11 @@ using System.Windows.Input;
 
 namespace Mov.Standard.Nico.Workspaces
 {
-    public class NicoMainViewModel : WorkspaceViewModel
+    public class NicoMainViewModel : MenuViewModel
     {
         public NicoMainViewModel()
         {
-            Current = new NicoRankingViewModel();
+            MainViewModel.Instance.Current = new NicoRankingViewModel();
 
             NicoTemporaryModel.Instance.AddOnPropertyChanged(this, (sender, e) =>
             {
@@ -26,15 +26,6 @@ namespace Mov.Standard.Nico.Workspaces
             TempCount = NicoTemporaryModel.Instance.Count;
 
         }
-
-        public override string Title => Current.Title;
-
-        public NicoWorkspaceViewModel Current
-        {
-            get { return _Current; }
-            set { SetProperty(ref _Current, value, true); }
-        }
-        private NicoWorkspaceViewModel _Current;
 
         public int TempCount
         {
@@ -55,27 +46,22 @@ namespace Mov.Standard.Nico.Workspaces
                 case NicoMenuType.Settings:
                     break;
                 case NicoMenuType.Ranking:
-                    Current = new NicoRankingViewModel();
+                    MainViewModel.Instance.Current = new NicoRankingViewModel();
                     break;
                 case NicoMenuType.Temporary:
-                    Current = new NicoTemporaryViewModel();
+                    MainViewModel.Instance.Current = new NicoTemporaryViewModel();
                     break;
                 case NicoMenuType.Mylist:
-                    Current = new NicoMylistViewModel();
+                    MainViewModel.Instance.Current = new NicoMylistViewModel();
                     break;
                 case NicoMenuType.Favorite:
-                    Current = new NicoFavoriteViewModel();
+                    MainViewModel.Instance.Current = new NicoFavoriteViewModel();
                     break;
                 case NicoMenuType.VideoHistory:
-                    Current = new NicoVideoHistoryViewModel();
+                    MainViewModel.Instance.Current = new NicoVideoHistoryViewModel();
                     break;
             }
         });
         private ICommand _OnClickMenu;
-
-        public static void SetCurrent(NicoWorkspaceViewModel vm)
-        {
-            ((NicoMainViewModel)MainViewModel.Instance.Current).Current = vm;
-        }
     }
 }

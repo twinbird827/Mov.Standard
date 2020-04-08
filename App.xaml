@@ -18,6 +18,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Cobalt.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/My.Wpf;component/Designs/Constants.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/My.Wpf;component/Designs/Controls.xaml" />
                 <ResourceDictionary Source="Designs/Common.xaml" />
             </ResourceDictionary.MergedDictionaries>

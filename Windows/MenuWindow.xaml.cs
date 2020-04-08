@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Mov.Standard.Nico.Workspaces
+namespace Mov.Standard.Windows
 {
     /// <summary>
-    /// NicoWorkspaceWindow.xaml の相互作用ロジック
+    /// MenuWindow.xaml の相互作用ロジック
     /// </summary>
-    public partial class NicoWorkspaceWindow : UserControl
+    public partial class MenuWindow : UserControl
     {
-        public NicoWorkspaceWindow()
+        public MenuWindow()
         {
             InitializeComponent();
         }

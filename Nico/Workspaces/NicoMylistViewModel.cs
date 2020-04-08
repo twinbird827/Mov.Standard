@@ -16,7 +16,7 @@ using System.Windows.Media.Imaging;
 
 namespace Mov.Standard.Nico.Workspaces
 {
-    public class NicoMylistViewModel : NicoWorkspaceViewModel
+    public class NicoMylistViewModel : WorkspaceViewModel
     {
         public NicoMylistViewModel()
         {

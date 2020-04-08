@@ -14,7 +14,7 @@ using System.Windows.Input;
 
 namespace Mov.Standard.Nico.Workspaces
 {
-    public class NicoTemporaryViewModel : NicoWorkspaceViewModel
+    public class NicoTemporaryViewModel : WorkspaceViewModel
     {
         public NicoTemporaryViewModel()
         {

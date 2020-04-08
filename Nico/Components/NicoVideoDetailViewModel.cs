@@ -210,8 +210,7 @@ namespace Mov.Standard.Nico.Components
             // 詳細にあるidをtemporaryに追加
             foreach (var id in Regex.Matches(Description, @"(?<id>sm[\d]+)").OfType<Match>()
                     .Select(m => m.Groups["id"].Value)
-                    .Where(tmp => !NicoVideoHistoryModel.Instance.IsSee(tmp))
-                    .Where(tmp => !NicoVideoHistoryModel.Instance.IsNew(tmp))
+                    .Where(tmp => !NicoVideoHistoryModel.Instance.Exists(tmp))
                 )
             {
                 await NicoUtil.AddVideo(id);

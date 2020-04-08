@@ -1,6 +1,7 @@
 ﻿using Mov.Standard.Models;
 using Mov.Standard.Nico.Components;
 using Mov.Standard.Nico.Models;
+using Mov.Standard.Windows;
 using My.Core;
 using My.Wpf.Core;
 using StatefulModel;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Mov.Standard.Nico.Workspaces
 {
-    public class NicoRankingViewModel : NicoWorkspaceViewModel
+    public class NicoRankingViewModel : WorkspaceViewModel
     {
         public NicoRankingViewModel()
         {
