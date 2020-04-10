@@ -31,6 +31,10 @@
             <local:WorkspaceWindow />
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type local:MenuViewModel}">
+            <local:MenuWindow />
+        </DataTemplate>
+
     </Controls:MetroWindow.Resources>
 
     <Grid>
@@ -49,11 +53,14 @@
             <StackPanel DockPanel.Dock="Left" 
                         Style="{StaticResource DefaultStackPanel}">
 
-                <usercontrol:IconPacksButton Command="{Binding OnClickMenu}"
+                <usercontrol:IconPacksButton Style="{StaticResource IconpacksButton}"
+                                             Command="{Binding OnClickMenu}"
                                              CommandParameter="{x:Static local:MenuType.NicoNico}"
                                              Kind="Tram"
                                              Text="NicoNico" />
 
+                <Controls:Underline />
+                
                 <!-- ｺﾝﾃﾝﾂ -->
                 <ContentPresenter Content="{Binding Menu}" />
 
