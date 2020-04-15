@@ -1,4 +1,5 @@
-﻿using Mov.Standard.Models;
+﻿using Mov.Standard.Core;
+using Mov.Standard.Models;
 using Mov.Standard.Nico.Components;
 using Mov.Standard.Nico.Models;
 using Mov.Standard.Windows;
@@ -24,7 +25,7 @@ namespace Mov.Standard.Nico.Workspaces
                 MovModel.Instance.Combos
                     .Where(combo => combo.Group == "mylist_order")
             );
-            SelectedOrder = Orders.First();
+            SelectedOrder = Orders.FirstOrDefault(order => order.Value == MovSetting.NicoMylistOrder) ?? Orders.First();
         }
 
         public override string Title => "Mylist";
@@ -46,7 +47,7 @@ namespace Mov.Standard.Nico.Workspaces
         public ComboboxItemModel SelectedOrder
         {
             get => _SelectedOrder;
-            set => SetProperty(ref _SelectedOrder, value);
+            set { if (SetProperty(ref _SelectedOrder, value)) MovSetting.NicoMylistOrder = value.Value; }
         }
         public ComboboxItemModel _SelectedOrder;
 
@@ -177,7 +178,7 @@ namespace Mov.Standard.Nico.Workspaces
                     MainViewModel.Instance.ShowToast("削除しました。", NotificationType.Information);
                 },
                 _ => {
-                    return Source.MylistId == NicoUtil.ToNicolistId(Text) && NicoFavoriteModel.Instance.Exists(Text);
+                    return Source?.MylistId == NicoUtil.ToNicolistId(Text) && NicoFavoriteModel.Instance.Exists(Text);
                 });
             }
         }

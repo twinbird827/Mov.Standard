@@ -97,6 +97,7 @@
     <Compile Include="Core\Databases\TSetting.cs" />
     <Compile Include="Core\Databases\TVideoHistory.cs" />
     <Compile Include="Core\MovConst.cs" />
+    <Compile Include="Core\MovSetting.cs" />
     <Compile Include="Models\MovModel.cs" />
     <Compile Include="Nico\Components\NicoComboViewModel.cs" />
     <Compile Include="Nico\Components\NicoMylistDetailViewModel.cs" />
@@ -246,7 +247,7 @@
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>

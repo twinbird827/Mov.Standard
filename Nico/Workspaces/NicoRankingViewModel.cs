@@ -1,4 +1,5 @@
-﻿using Mov.Standard.Models;
+﻿using Mov.Standard.Core;
+using Mov.Standard.Models;
 using Mov.Standard.Nico.Components;
 using Mov.Standard.Nico.Models;
 using Mov.Standard.Windows;
@@ -30,13 +31,13 @@ namespace Mov.Standard.Nico.Workspaces
                     MovModel.Instance.Combos
                         .Where(combo => combo.Group == "rank_genre")
                 );
-                SelectedGenre = Genres.First();
+                SelectedGenre = Genres.FirstOrDefault(genre => genre.Value == MovSetting.NicoRankingGenre) ?? Genres.First();
 
                 Periods = new ObservableCollection<ComboboxItemModel>(
                     MovModel.Instance.Combos
                         .Where(combo => combo.Group == "rank_period")
                 );
-                SelectedPeriod = Periods.First();
+                SelectedPeriod = Periods.FirstOrDefault(period => period.Value == MovSetting.NicoRankingPeriod) ?? Periods.First();
 
                 _isLoading = false;
 

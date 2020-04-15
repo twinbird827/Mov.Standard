@@ -154,7 +154,8 @@ namespace Mov.Standard.Nico.Models
             //var g = genre.Value;
             //var t = "all";
 
-            var url = $"http://www.nicovideo.jp/ranking/genre/{genre}?tag={tag}&term={term}&rss=2.0&lang=ja-jp";
+            //var url = $"http://www.nicovideo.jp/ranking/genre/{genre}?tag={tag}&term={term}&rss=2.0&lang=ja-jp";
+            var url = $"https://www.nicovideo.jp/ranking/genre/{genre}?video_ranking_menu?tag={tag}&term={term}&rss=2.0&lang=ja-jp";
             var xml = await WebUtil.GetXmlChannelAsync(url, false);
             var videos = xml.Descendants("item")
                 .Select(item => CreateVideoFromXml(item,
@@ -188,7 +189,7 @@ namespace Mov.Standard.Nico.Models
                 video.ViewCounter = long.Parse(item["item_data"]["view_counter"]);
                 video.MylistCounter = long.Parse(item["item_data"]["mylist_counter"]);
                 video.CommentCounter = long.Parse(item["item_data"]["num_res"]);
-                video.StartTime = FromUnixTime((long)item["item_data"]["first_retrieve"]);
+                video.StartTime = FromUnixTime((long)item["update_time"]);
                 //video.LastCommentTime = Converter.item(data["lastCommentTime"]);
                 video.LengthSeconds = long.Parse(item["item_data"]["length_seconds"]);
                 video.ThumbnailUrl = item["item_data"]["thumbnail_url"];

@@ -22,30 +22,30 @@
     <item value="r18"                   display="R-18" />
   </combo>
   <combo group="rank_period">
-    <item value="hourly"  display="hourly" />
-    <item value="daily"   display="daily" />
-    <item value="weekly"  display="weekly" />
-    <item value="monthly" display="monthly" />
-    <item value="total"   display="total" />
+    <item value="hourly"  display="時間" />
+    <item value="daily"   display="日間" />
+    <item value="weekly"  display="週間" />
+    <item value="monthly" display="月間" />
+    <item value="total"   display="総合" />
   </combo>
   <combo group="mylist_order">
-    <item value="0"   display="SORT_MYREG0" />
-    <item value="1"   display="SORT_MYREG1" />
-    <item value="2"   display="SORT_MYCOMMENT0" />
-    <item value="3"   display="SORT_MYCOMMENT1" />
-    <item value="4"   display="SORT_TITLE0" />
-    <item value="5"   display="SORT_TITLE1" />
-    <item value="6"   display="SORT_UPLOAD0" />
-    <item value="7"   display="SORT_UPLOAD1" />
-    <item value="8"   display="SORT_VIEWRES0" />
-    <item value="9"   display="SORT_VIEWRES1" />
-    <item value="10"  display="SORT_COMMENT0" />
-    <item value="11"  display="SORT_COMMENT1" />
-    <item value="12"  display="SORT_COMMENTRES0" />
-    <item value="13"  display="SORT_COMMENTRES1" />
-    <item value="14"  display="SORT_MYREGRES0" />
-    <item value="15"  display="SORT_MYREGRES1" />
-    <item value="16"  display="SORT_LENGTH0" />
-    <item value="17"  display="SORT_LENGTH1" />
+    <item value="0"   display="登録が古い順" />
+    <item value="1"   display="登録が新しい順" />
+    <item value="2"   display="メモ昇順" />
+    <item value="3"   display="メモ降順" />
+    <item value="4"   display="タイトル昇順" />
+    <item value="5"   display="タイトル降順" />
+    <item value="6"   display="投稿が新しい順" />
+    <item value="7"   display="投稿が古い順" />
+    <item value="8"   display="再生が多い順" />
+    <item value="9"   display="再生が少ない順" />
+    <item value="10"  display="コメントが新しい順" />
+    <item value="11"  display="コメントが古い順" />
+    <item value="12"  display="コメントが多い順" />
+    <item value="13"  display="コメントが少ない順" />
+    <item value="14"  display="マイリスト登録が多い順" />
+    <item value="15"  display="マイリスト登録が少ない順" />
+    <item value="16"  display="動画時間が長い順" />
+    <item value="17"  display="動画時間が短い順" />
   </combo>
 </xml>

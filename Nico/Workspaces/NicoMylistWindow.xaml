@@ -19,7 +19,7 @@
 
     <DockPanel>
 
-        <DockPanel DockPanel.Dock="Left" Width="150">
+        <DockPanel DockPanel.Dock="Left" Width="200">
 
             <ComboBox DockPanel.Dock="Top"
                       Style="{StaticResource DefaultComboBox}"

@@ -19,11 +19,11 @@
         <StackPanel DockPanel.Dock="Top"
                     Style="{StaticResource HorizontalStackPanel}">
 
-            <ComboBox Style="{StaticResource DefaultComboBox}"
+            <ComboBox Style="{StaticResource NicoComboBox}"
                       ItemsSource="{Binding Genres}"
                       SelectedItem="{Binding SelectedGenre}" />
 
-            <ComboBox Style="{StaticResource DefaultComboBox}"
+            <ComboBox Style="{StaticResource NicoComboBox}"
                       ItemsSource="{Binding Periods}"
                       SelectedItem="{Binding SelectedPeriod}" />
 
