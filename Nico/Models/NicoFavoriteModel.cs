@@ -33,7 +33,7 @@ namespace Mov.Standard.Nico.Models
         public async Task Initialize(SQLiteControl command)
         {
             var favorites = await command.SelectTFavoriteAsync();
-            var mylists = await favorites.Select(favorite => NicoMylistModel.CreateAsync(favorite.Mylist, "0")).WhenAll();
+            var mylists = await favorites.Select(favorite => NicoMylistModel.CreateAsync(favorite, "0")).WhenAll();
             Mylists = new ObservableSynchronizedCollection<NicoMylistModel>(mylists);
 
             Timer = new IntervalTimer();
@@ -46,8 +46,6 @@ namespace Mov.Standard.Nico.Models
         {
             foreach (var mylist in Mylists)
             {
-                mylist.ConfirmDate = mylist.Videos.Max(video => video.StartTime);
-
                 await mylist.ReloadVideos();
             }
 
@@ -69,13 +67,18 @@ namespace Mov.Standard.Nico.Models
                 await NicoUtil.AddVideo(video);
             }
 
+            foreach (var mylist in Mylists)
+            {
+                mylist.ConfirmDate = mylist.Videos.MaxOrDefault(video => video.StartTime, DateTime.Now);
+            }
+
             using (var command = DbUtil.GetControl())
             {
                 await command.BeginTransaction();
                 await command.DeleteTFavoriteAsync();
                 foreach (var mylist in Mylists)
                 {
-                    await command.InsertTFavoriteAsync(mylist.MylistId);
+                    await command.InsertTFavoriteAsync(mylist);
                 }
                 await command.Commit();
             }
@@ -86,12 +89,14 @@ namespace Mov.Standard.Nico.Models
             var id = NicoUtil.ToNicolistId(url);
             if (!Exists(id))
             {
-                Mylists.Add(await NicoMylistModel.CreateAsync(id, "0"));
+                var mylist = await NicoMylistModel.CreateAsync(id, "0");
+
+                Mylists.Add(mylist);
 
                 using (var command = DbUtil.GetControl())
                 {
                     await command.BeginTransaction();
-                    await command.InsertTFavoriteAsync(id);
+                    await command.InsertTFavoriteAsync(mylist);
                     await command.Commit();
                 }
             }

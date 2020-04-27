@@ -1,4 +1,5 @@
-﻿using My.Core.Databases.SQLite;
+﻿using Mov.Standard.Nico.Models;
+using My.Core.Databases.SQLite;
 using My.Core.Extensions;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace Mov.Standard.Core.Databases
 {
     public static class DbFavoriteExtensions
     {
-        public static async Task<int> InsertTFavoriteAsync(this SQLiteControl command, string mylist)
+        public static async Task<int> InsertTFavoriteAsync(this SQLiteControl command, NicoMylistModel mylist)
         {
             var sql = new StringBuilder();
 
@@ -25,8 +26,8 @@ namespace Mov.Standard.Core.Databases
 
             var parameters = new[]
             {
-                Sqlite3Util.CreateParameter(DbType.String, mylist),
-                Sqlite3Util.CreateParameter(DbType.Int64, DateTime.Now.Ticks),
+                Sqlite3Util.CreateParameter(DbType.String, mylist.MylistId),
+                Sqlite3Util.CreateParameter(DbType.Int64, mylist.ConfirmDate.Ticks),
             };
 
             return await command.ExecuteNonQueryAsync(sql.ToString(), parameters);

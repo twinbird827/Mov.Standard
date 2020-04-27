@@ -1,4 +1,5 @@
-﻿using My.Core;
+﻿using Mov.Standard.Core.Databases;
+using My.Core;
 using My.Wpf.Core;
 using StatefulModel;
 using System;
@@ -91,10 +92,20 @@ namespace Mov.Standard.Nico.Models
         }
         private ObservableSynchronizedCollection<NicoVideoModel> _Videos;
 
+        public static async Task<NicoMylistModel> CreateAsync(TFavorite value, string orderby)
+        {
+            var m = new NicoMylistModel();
+            await m.GetInstanceAsync(value.Mylist, orderby);
+            m.ConfirmDate = value.Date;
+            return m;
+        }
+
         public static async Task<NicoMylistModel> CreateAsync(string value, string orderby)
         {
             var m = new NicoMylistModel();
-            return await m.GetInstanceAsync(value, orderby);
+            await m.GetInstanceAsync(value, orderby);
+            m.ConfirmDate = m.Videos.MaxOrDefault(video => video.StartTime, DateTime.Now);
+            return m;
         }
 
         private async Task<NicoMylistModel> GetInstanceAsync(string value, string orderby)
