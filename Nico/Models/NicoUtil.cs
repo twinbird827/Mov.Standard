@@ -282,6 +282,9 @@ namespace Mov.Standard.Nico.Models
                 // ﾃﾝﾎﾟﾗﾘに追加
                 NicoTemporaryModel.Instance.Videos.Add(vm);
 
+                // ｽﾃｰﾀｽ変更
+                vm.Status = VideoStatus.New;
+
                 // 履歴に追加
                 await NicoVideoHistoryModel.Instance.AddVideoHistory(vm.VideoId, VideoStatus.New);
                 NicoTemporaryModel.Instance.Count += 1;
@@ -306,6 +309,11 @@ namespace Mov.Standard.Nico.Models
 
                 // 削除用URLを実行
                 var txt = await WebUtil.GetStringAsync(url, true);
+
+                // ｽﾃｰﾀｽ更新
+                vm.Status = NicoVideoHistoryModel.Instance.IsSee(vm.VideoId)
+                    ? VideoStatus.See
+                    : VideoStatus.None;
 
                 // ﾃﾝﾎﾟﾗﾘから削除
                 NicoTemporaryModel.Instance.Videos.Remove(

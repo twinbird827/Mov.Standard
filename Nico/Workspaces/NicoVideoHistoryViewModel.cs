@@ -35,7 +35,7 @@ namespace Mov.Standard.Nico.Workspaces
                 Views = new SortedObservableCollection<NicoVideoHistoryDetailViewModel, DateTime>(
                     histories,
                     view => view.LastDate,
-                    false
+                    true
                 );
             };
         }
