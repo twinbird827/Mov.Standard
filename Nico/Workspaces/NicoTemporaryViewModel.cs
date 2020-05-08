@@ -18,10 +18,17 @@ namespace Mov.Standard.Nico.Workspaces
     {
         public NicoTemporaryViewModel()
         {
-            Views = NicoTemporaryModel.Instance.Videos.ToSyncedSynchronizationContextCollection(
-                video => new NicoVideoDetailViewModel(video),
-                System.Threading.SynchronizationContext.Current
-            );
+            Loaded += async (sender, e) =>
+            {
+                NicoTemporaryModel.Instance.Videos.Clear();
+                NicoTemporaryModel.Instance.Videos.AddRange(await NicoUtil.GetTemporary());
+                NicoTemporaryModel.Instance.Count = NicoTemporaryModel.Instance.Videos.Count;
+
+                Views = NicoTemporaryModel.Instance.Videos.ToSyncedSynchronizationContextCollection(
+                    video => new NicoVideoDetailViewModel(video),
+                    System.Threading.SynchronizationContext.Current
+                );
+            };
         }
 
         public override string Title => "Temporary";
