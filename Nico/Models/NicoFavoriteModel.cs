@@ -72,7 +72,7 @@ namespace Mov.Standard.Nico.Models
                 mylist.ConfirmDate = mylist.Videos.MaxOrDefault(video => video.StartTime, DateTime.Now);
             }
 
-            using (var command = DbUtil.GetControl())
+            using (var command = await DbUtil.GetControl())
             {
                 await command.BeginTransaction();
                 await command.DeleteTFavoriteAsync();
@@ -93,7 +93,7 @@ namespace Mov.Standard.Nico.Models
 
                 Mylists.Add(mylist);
 
-                using (var command = DbUtil.GetControl())
+                using (var command = await DbUtil.GetControl())
                 {
                     await command.BeginTransaction();
                     await command.InsertTFavoriteAsync(mylist);
@@ -109,7 +109,7 @@ namespace Mov.Standard.Nico.Models
             {
                 Mylists.Remove(Mylists.First(mylist => mylist.MylistId == id));
 
-                using (var command = DbUtil.GetControl())
+                using (var command = await DbUtil.GetControl())
                 {
                     await command.BeginTransaction();
                     await command.DeleteTFavoriteAsync(id);

@@ -94,10 +94,12 @@
     </ApplicationDefinition>
     <Compile Include="Core\Databases\DbFavoriteExtensions.cs" />
     <Compile Include="Core\Databases\DbSettingExtensions.cs" />
+    <Compile Include="Core\Databases\DbTemporaryExtensions.cs" />
     <Compile Include="Core\Databases\DbUtil.cs" />
     <Compile Include="Core\Databases\DbVideoHistoryExtensions.cs" />
     <Compile Include="Core\Databases\TFavorite.cs" />
     <Compile Include="Core\Databases\TSetting.cs" />
+    <Compile Include="Core\Databases\TTemporary.cs" />
     <Compile Include="Core\Databases\TVideoHistory.cs" />
     <Compile Include="Core\MovConst.cs" />
     <Compile Include="Core\MovSetting.cs" />

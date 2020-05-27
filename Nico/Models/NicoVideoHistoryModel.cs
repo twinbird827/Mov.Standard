@@ -41,7 +41,7 @@ namespace Mov.Standard.Nico.Models
         {
             var id = NicoUtil.ToVideoId(url);
 
-            using (var command = DbUtil.GetControl())
+            using (var command = await DbUtil.GetControl())
             {
                 await command.BeginTransaction();
                 Histories.Add(await command.InsertTVideoHistoryAsync(id, status));

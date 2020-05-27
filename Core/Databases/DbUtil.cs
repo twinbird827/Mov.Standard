@@ -1,4 +1,5 @@
-﻿using My.Core.Databases.SQLite;
+﻿using My.Core;
+using My.Core.Databases.SQLite;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -12,7 +13,7 @@ namespace Mov.Standard.Core.Databases
 {
     public static class DbUtil
     {
-        public static SQLiteControl GetControl()
+        public static Task<SQLiteControl> GetControl()
         {
             var path = "database.sqlite3";
             var work = System.AppDomain.CurrentDomain.BaseDirectory.TrimEnd('\\');
@@ -20,15 +21,7 @@ namespace Mov.Standard.Core.Databases
 
             Directory.CreateDirectory(Path.GetDirectoryName(full));
 
-            return new SQLiteControl(
-                path,
-                IsolationLevel.ReadCommitted,
-                SynchronizationModes.Off,
-                SQLiteJournalModeEnum.Wal,
-                false,
-                true,
-                65536
-            );
+            return SQLiteControl.CreateAsync(full);
         }
 
         public static async Task InitializeDatabase(this SQLiteControl command)
@@ -65,6 +58,15 @@ namespace Mov.Standard.Core.Databases
             sql.AppendLine($"    video         TEXT    NOT NULL,");
             sql.AppendLine($"    status        INTEGER NOT NULL,");
             sql.AppendLine($"PRIMARY KEY (tick, video)");
+            sql.AppendLine($")");
+
+            await command.ExecuteNonQueryAsync(sql.ToString());
+
+            sql.Clear();
+            sql.AppendLine($"CREATE TABLE IF NOT EXISTS t_temporary (");
+            sql.AppendLine($"    tick          INTEGER NOT NULL,");
+            sql.AppendLine($"    video         TEXT    NOT NULL,");
+            sql.AppendLine($"PRIMARY KEY (video)");
             sql.AppendLine($")");
 
             await command.ExecuteNonQueryAsync(sql.ToString());

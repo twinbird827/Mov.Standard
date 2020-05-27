@@ -18,7 +18,7 @@ namespace Mov.Standard.Nico.Models
 
         public async Task<CookieContainer> TryLoginAsync()
         {
-            using (var command = DbUtil.GetControl())
+            using (var command = await DbUtil.GetControl())
             {
                 var settings = await command.SelectTSetting();
                 var mail = settings.FirstOrDefault(s => s.Group == "setting" && s.Key == "mail")?.Value;

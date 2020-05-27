@@ -76,7 +76,7 @@ namespace Mov.Standard.Windows
             // Xmlﾌｧｲﾙ読み込み
             await MovModel.Instance.LoadXmlAsync();
 
-            using (var command = DbUtil.GetControl())
+            using (var command = await DbUtil.GetControl())
             {
                 await vm.SetMessageAsync("ﾃﾞｰﾀﾍﾞｰｽﾌｧｲﾙ読み込み中");
 
