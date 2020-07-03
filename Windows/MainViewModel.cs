@@ -5,12 +5,14 @@ using Mov.Standard.Nico.Workspaces;
 using My.Wpf;
 using My.Wpf.Core;
 using My.Wpf.Windows;
+using Notifications.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace Mov.Standard.Windows
 {
@@ -125,5 +127,46 @@ namespace Mov.Standard.Windows
             // 画面遷移
             OnClickMenu.Execute(MenuType.NicoNico);
         }
+
+        /// <summary>
+        /// ﾄｰｽﾄ通知を表示します。
+        /// </summary>
+        /// <param name="title">ﾀｲﾄﾙ</param>
+        /// <param name="message">ﾒｯｾｰｼﾞ</param>
+        /// <param name="type">通知の種類</param>
+        /// <param name="timeout">通知を表示する時間</param>
+        public void ShowToast(string title, string message, NotificationType type, TimeSpan timeout)
+        {
+            var manager = new NotificationManager(Dispatcher.CurrentDispatcher);
+            var content = new NotificationContent
+            {
+                Title = title,
+                Message = message,
+                Type = type
+            };
+            manager.Show(content, "", timeout);
+        }
+
+        /// <summary>
+        /// ﾄｰｽﾄ通知を表示します。
+        /// </summary>
+        /// <param name="message">ﾒｯｾｰｼﾞ</param>
+        /// <param name="type">通知の種類</param>
+        /// <param name="timeout">通知を表示する時間</param>
+        public void ShowToast(string message, NotificationType type, TimeSpan timeout)
+        {
+            ShowToast(type.ToString(), message, type, timeout);
+        }
+
+        /// <summary>
+        /// ﾄｰｽﾄ通知を表示します。
+        /// </summary>
+        /// <param name="message">ﾒｯｾｰｼﾞ</param>
+        /// <param name="type">通知の種類</param>
+        public void ShowToast(string message, NotificationType type)
+        {
+            ShowToast(message, type, TimeSpan.FromMilliseconds(2000));
+        }
+
     }
 }

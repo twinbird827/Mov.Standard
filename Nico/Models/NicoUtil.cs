@@ -223,29 +223,37 @@ namespace Mov.Standard.Nico.Models
 
         public static async Task<NicoVideoModel> GetVideo(string url)
         {
-            var videoid = ToVideoId(url);
-            var txt = await WebUtil.GetStringAsync($"http://ext.nicovideo.jp/api/getthumbinfo/{videoid}", false);
-            var xml = WebUtil.ToXml(txt);
             var video = new NicoVideoModel();
+            var videoid = ToVideoId(url);
+            try
+            {
+                var txt = await WebUtil.GetStringAsync($"http://ext.nicovideo.jp/api/getthumbinfo/{videoid}", false);
+                var xml = WebUtil.ToXml(txt);
 
-            if (xml == null || (string)xml.Attribute("status") == "fail")
+                if (xml == null || (string)xml.Attribute("status") == "fail")
+                {
+                    video.VideoId = videoid;
+                    video.Status = VideoStatus.Delete;
+                    return video;
+                }
+                xml = xml.Descendants("thumb").First();
+                video.VideoId = (string)xml.Element("watch_url");
+                video.Title = (string)xml.Element("title");
+                video.Description = (string)xml.Element("description");
+                video.ThumbnailUrl = (string)xml.Element("thumbnail_url");
+                video.ViewCounter = (double)xml.Element("view_counter");
+                video.CommentCounter = (double)xml.Element("comment_num");
+                video.MylistCounter = (double)xml.Element("mylist_counter");
+                video.StartTime = DateTime.Parse((string)xml.Element("first_retrieve"));
+                video.LengthSeconds = NicoUtil.ToLengthSeconds((string)xml.Element("length"));
+                video.Tags = xml.Descendants("tags").First().Descendants("tag").Select(tag => (string)tag).GetString(" ");
+                video.Username = (string)xml.Element("user_nickname");
+            }
+            catch
             {
                 video.VideoId = videoid;
                 video.Status = VideoStatus.Delete;
-                return video;
             }
-            xml = xml.Descendants("thumb").First();
-            video.VideoId = (string)xml.Element("watch_url");
-            video.Title = (string)xml.Element("title");
-            video.Description = (string)xml.Element("description");
-            video.ThumbnailUrl = (string)xml.Element("thumbnail_url");
-            video.ViewCounter = (double)xml.Element("view_counter");
-            video.CommentCounter = (double)xml.Element("comment_num");
-            video.MylistCounter = (double)xml.Element("mylist_counter");
-            video.StartTime = DateTime.Parse((string)xml.Element("first_retrieve"));
-            video.LengthSeconds = NicoUtil.ToLengthSeconds((string)xml.Element("length"));
-            video.Tags = xml.Descendants("tags").First().Descendants("tag").Select(tag => (string)tag).GetString(" ");
-            video.Username = (string)xml.Element("user_nickname");
 
             return video;
         }

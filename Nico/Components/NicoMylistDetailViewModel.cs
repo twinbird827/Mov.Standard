@@ -49,7 +49,14 @@ namespace Mov.Standard.Nico.Components
 
             Loaded += async (sender, e) =>
             {
-                Thumbnail = await NicoUtil.GetThumbnailAsync(Source.ThumbnailUrl);
+                try
+                {
+                    Thumbnail = await NicoUtil.GetThumbnailAsync(Source.ThumbnailUrl);
+                }
+                catch
+                {
+                    Thumbnail = null;
+                }
             };
         }
 
