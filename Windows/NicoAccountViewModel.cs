@@ -29,9 +29,10 @@ namespace Mov.Standard.Windows
         }
         private string _Password;
 
-        protected override bool CanClickOK<T>(T parameter)
+        protected override bool CanClickOK
         {
-            return !string.IsNullOrEmpty(Mail) && !string.IsNullOrEmpty(Password);
+            get => !string.IsNullOrEmpty(Mail) && !string.IsNullOrEmpty(Password);
+            set => base.CanClickOK = value;
         }
     }
 }

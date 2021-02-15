@@ -12,9 +12,8 @@
                       xmlns:notifications="clr-namespace:Notifications.Wpf.Controls;assembly=Notifications.Wpf"
                       xmlns:properties="clr-namespace:Mov.Standard.Properties"
                       SaveWindowPosition="True"
-                      BorderBrush="{DynamicResource AccentColorBrush}"
+                      BorderBrush="{DynamicResource My.Brushes.Accent}"
                       BorderThickness="1"
-                      TitleCaps="False"
                       Icon="/Mov.Standard;component/Designs/mov_standard.ico"
                       Title="{Binding Current.ApplicationTitle}" 
                       behavior:WindowBehavior.ContentRendered="{Binding OnLoaded}"
@@ -53,7 +52,7 @@
             <StackPanel DockPanel.Dock="Left" 
                         Style="{StaticResource DefaultStackPanel}">
 
-                <usercontrol:IconPacksButton Style="{StaticResource IconpacksButton}"
+                <local:IconPacksButton Style="{StaticResource MenuIconpacksButton}"
                                              Command="{Binding OnClickMenu}"
                                              CommandParameter="{x:Static local:MenuType.NicoNico}"
                                              Kind="Tram"
