@@ -4,6 +4,11 @@
                     xmlns:windows="clr-namespace:Mov.Standard.Windows"
                     xmlns:system="clr-namespace:System;assembly=mscorlib">
 
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/My.Wpf;component/Designs/Constants.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/My.Wpf;component/Designs/Controls.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
     <Style x:Key="TitleTextBlock" TargetType="TextBlock" BasedOn="{StaticResource DefaultTextBlock}">
         <Setter Property="TextAlignment" Value="Left" />
         <Setter Property="FontSize" Value="16" />
@@ -25,7 +30,7 @@
         <Setter Property="Height" Value="{Binding RelativeSource={RelativeSource Self}, Path=Source.PixelHeight}" />
     </Style>
 
-    <Style x:Key="NicoVideoWindow.ItemContainerStyle" TargetType="ListBoxItem" BasedOn="{StaticResource MetroListBoxItem}">
+    <Style x:Key="NicoVideoWindow.ItemContainerStyle" TargetType="ListBoxItem" BasedOn="{StaticResource MahApps.Styles.ListBoxItem}">
         <Setter Property="behavior:FrameworkElementBehavior.DoubleClick" Value="{Binding OnDoubleClick}" />
         <Setter Property="behavior:ControlBehavior.KeyDown" Value="{Binding OnKeyDown}" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -46,7 +51,7 @@
     <!--
         VideoItemsWindow定義
     -->
-    <Style x:Key="NicoTemporary.NicoVideoWindow.ItemContainerStyle" TargetType="ListBoxItem" BasedOn="{StaticResource MetroListBoxItem}">
+    <Style x:Key="NicoTemporary.NicoVideoWindow.ItemContainerStyle" TargetType="ListBoxItem" BasedOn="{StaticResource MahApps.Styles.ListBoxItem}">
         <Setter Property="behavior:FrameworkElementBehavior.DoubleClick" Value="{Binding OnDoubleClick}" />
         <Setter Property="behavior:ControlBehavior.KeyDown" Value="{Binding OnKeyDown}" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -62,7 +67,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="NicoMylistWindow.ItemContainerStyle" TargetType="ListBoxItem" BasedOn="{StaticResource MetroListBoxItem}">
+    <Style x:Key="NicoMylistWindow.ItemContainerStyle" TargetType="ListBoxItem" BasedOn="{StaticResource MahApps.Styles.ListBoxItem}">
         <Setter Property="behavior:FrameworkElementBehavior.DoubleClick" Value="{Binding OnDoubleClick}" />
         <Setter Property="behavior:ControlBehavior.KeyDown" Value="{Binding OnKeyDown}" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />

@@ -86,6 +86,8 @@ namespace Mov.Standard.Windows
         public IconPacksButton()
         {
             InitializeComponent();
+
+            baseContainer.DataContext = this;
         }
     }
 }

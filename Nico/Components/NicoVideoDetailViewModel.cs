@@ -200,7 +200,7 @@ namespace Mov.Standard.Nico.Components
 
         public ICommand OnDoubleClick => _OnDoubleClick = _OnDoubleClick ?? new RelayCommand(async _ =>
         {
-            Process.Start(@"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe", VideoUrl);
+            Process.Start(@"C:\Program Files\Google\Chrome\Application\chrome.exe", VideoUrl);
 
             Source.Status = VideoStatus.See;
 
