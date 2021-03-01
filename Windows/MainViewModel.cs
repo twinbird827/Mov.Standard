@@ -1,11 +1,9 @@
-﻿using Mov.Standard.Core.Databases;
-using Mov.Standard.Models;
-using Mov.Standard.Nico.Models;
-using Mov.Standard.Nico.Workspaces;
-using My.Wpf;
+﻿using Mov.Standard.Core.Database;
+using Mov.Standard.Core.Nico;
+using Mov.Standard.Workspaces;
+using My.Core;
 using My.Wpf.Core;
 using My.Wpf.Windows;
-using Notifications.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,11 +25,16 @@ namespace Mov.Standard.Windows
             Instance = this;
         }
 
+        #region ﾌﾟﾛﾊﾟﾃｨ
+
         /// <summary>
         /// 本ｲﾝｽﾀﾝｽ(ｼﾝｸﾞﾙﾄﾝ)
         /// </summary>
         public static MainViewModel Instance { get; private set; }
 
+        /// <summary>
+        /// ｶﾚﾝﾄﾜｰｸｽﾍﾟｰｽ
+        /// </summary>
         public WorkspaceViewModel Current
         {
             get { return _Current; }
@@ -39,134 +42,123 @@ namespace Mov.Standard.Windows
         }
         private WorkspaceViewModel _Current;
 
-        public MenuViewModel Menu
+        public MovieType MovieType
         {
-            get { return _Menu; }
-            set { SetProperty(ref _Menu, value, true); }
+            get { return _MovieType; }
+            set { SetProperty(ref _MovieType, value); }
         }
-        private MenuViewModel _Menu;
+        private MovieType _MovieType = MovieType.Niconico;
+
+        public string TemporaryString => $"Temp ({NicoUtil.Temporaries?.Count ?? 0})";
 
         /// <summary>
-        /// ﾒﾆｭｰ処理
+        /// ﾛｸﾞｵﾌﾀｲﾏｰ
         /// </summary>
-        public ICommand OnClickMenu =>
-            _OnClickMenu = _OnClickMenu ?? new RelayCommand(
-        type =>
-        {
-            switch (type)
-            {
-                case MenuType.Settings:
-                    break;
-                case MenuType.NicoNico:
-                    Menu = new NicoMainViewModel();
-                    break;
-            }
-        });
-        private ICommand _OnClickMenu;
+        public DispatcherTimer CheckTimer { get; private set; }
 
-        protected override bool DoClosing()
-        {
-            Current?.Dispose();
+        #endregion
 
-            return false;
-        }
+        #region 起動・終了処理
 
         protected override async Task DoLoading(ProgressViewModel vm)
         {
-            await vm.SetMessageAsync("設定ﾌｧｲﾙ読み込み中");
-
-            // Xmlﾌｧｲﾙ読み込み
-            await MovModel.Instance.LoadXmlAsync();
+            // TODO 設定ﾌｧｲﾙの初期化
 
             using (var command = await DbUtil.GetControl())
             {
-                await vm.SetMessageAsync("ﾃﾞｰﾀﾍﾞｰｽﾌｧｲﾙ読み込み中");
+                // ﾃﾞｰﾀﾍﾞｰｽの初期化
+                await DbUtil.Initialize(command);
 
-                // Xmlﾌｧｲﾙ読み込み
-                await command.InitializeDatabase();
-
-                await NicoFavoriteModel.Instance.Initialize(command);
-
-                await NicoVideoHistoryModel.Instance.Initialize(command);
-
-                await vm.SetMessageAsync("ｱｶｳﾝﾄ情報読み込み中");
-
-                var settings = await command.SelectTSetting();
-                var mail = settings.FirstOrDefault(s => s.Group == "setting" && s.Key == "mail")?.Value;
-                var pass = settings.FirstOrDefault(s => s.Group == "setting" && s.Key == "password")?.Value;
-                var change = false;
-                while (true)
-                {
-                    if (await Session.Instance.TryLoginAsync(mail, pass) != null)
-                    {
-                        break;
-                    }
-
-                    var nicovm = new NicoAccountViewModel(mail, pass);
-                    var nicowindow = new NicoAccountWindow(nicovm);
-
-                    nicowindow.ShowModalWindow();
-
-                    mail = nicovm.Mail;
-                    pass = nicovm.Password;
-                    change = true;
-                }
-
-                if (change)
-                {
-                    await command.BeginTransaction();
-                    await command.InsertTSetting("setting", "mail", mail);
-                    await command.InsertTSetting("setting", "password", pass);
-                    await command.Commit();
-                }
+                // Nico状態の初期化
+                await NicoUtil.Initialize(command);
             }
 
-            // 初回読取
-            await NicoTemporaryModel.Instance.LoadAsync();
-
-            // 画面遷移
-            OnClickMenu.Execute(MenuType.NicoNico);
-        }
-
-        /// <summary>
-        /// ﾄｰｽﾄ通知を表示します。
-        /// </summary>
-        /// <param name="title">ﾀｲﾄﾙ</param>
-        /// <param name="message">ﾒｯｾｰｼﾞ</param>
-        /// <param name="type">通知の種類</param>
-        /// <param name="timeout">通知を表示する時間</param>
-        public void ShowToast(string title, string message, NotificationType type, TimeSpan timeout)
-        {
-            var manager = new NotificationManager(Dispatcher.CurrentDispatcher);
-            var content = new NotificationContent
+            // 自動ﾀｲﾏｰ起動
+            CheckTimer = new DispatcherTimer();
+            CheckTimer.Interval = TimeSpan.FromMinutes(5);
+            CheckTimer.Tick += async (sender, e) =>
             {
-                Title = title,
-                Message = message,
-                Type = type
+                foreach (var x in NicoUtil.Favorites)
+                {
+                    // 全件取得
+                    var videos = await NicoUtil.GetMylistVideos(x.MylistId, "0");
+                    // 対象絞り込み
+                    var targets = videos
+                        .Where(video => x.Date < video.StartTime)
+                        .ToArray();
+
+                    if (targets.Any())
+                    {
+                        await targets
+                            .Select(async video => await NicoUtil.AddTemporary(video.VideoId))
+                            .WhenAll();
+
+                        await NicoUtil.AddFavorite(x.MylistId, targets.Max(target => target.StartTime));
+                    }
+                }
             };
-            manager.Show(content, "", timeout);
+            CheckTimer.Start();
+
+            // TemporaryStringの更新ｲﾍﾞﾝﾄ関連付け
+            NicoUtil.Temporaries.CollectionChanged += (sender, e) =>
+            {
+                OnPropertyChanged(nameof(TemporaryString));
+            };
+            OnPropertyChanged(nameof(TemporaryString));
+
+            ChangeCurrent(MenuType.NicoSearch);
+
+            await Current.ExecuteLoadTasks();
         }
 
-        /// <summary>
-        /// ﾄｰｽﾄ通知を表示します。
-        /// </summary>
-        /// <param name="message">ﾒｯｾｰｼﾞ</param>
-        /// <param name="type">通知の種類</param>
-        /// <param name="timeout">通知を表示する時間</param>
-        public void ShowToast(string message, NotificationType type, TimeSpan timeout)
+        protected override bool DoClosing()
         {
-            ShowToast(type.ToString(), message, type, timeout);
+            // TODO 設定ﾌｧｲﾙを閉じる
+            CheckTimer.Stop();
+
+            return base.DoClosing();
         }
 
-        /// <summary>
-        /// ﾄｰｽﾄ通知を表示します。
-        /// </summary>
-        /// <param name="message">ﾒｯｾｰｼﾞ</param>
-        /// <param name="type">通知の種類</param>
-        public void ShowToast(string message, NotificationType type)
+        #endregion
+
+        public ICommand OnClickNiconico => _OnClickNiconico = _OnClickNiconico ?? new RelayCommand(_ =>
         {
-            ShowToast(message, type, TimeSpan.FromMilliseconds(2000));
+            MovieType = MovieType.Youtube;
+        });
+        private ICommand _OnClickNiconico;
+
+        public ICommand OnClickYoutube => _OnClickYoutube = _OnClickYoutube ?? new RelayCommand(_ =>
+        {
+            MovieType = MovieType.Niconico;
+        });
+        private ICommand _OnClickYoutube;
+
+        public ICommand OnClickMenu => _OnClickMenu = _OnClickMenu ?? new RelayCommand<MenuType>(
+            ChangeCurrent
+        );
+        private ICommand _OnClickMenu;
+
+        public void ChangeCurrent(MenuType menu)
+        {
+            var newtype = _menu[menu];
+            if (Current != null && newtype == Current.GetType())
+            {
+                return;
+            }
+            else
+            {
+                Current = Activator.CreateInstance(newtype) as WorkspaceViewModel;
+            }
         }
+
+        private Dictionary<MenuType, Type> _menu = new Dictionary<MenuType, Type>()
+        {
+            [MenuType.NicoSearch] = typeof(NicoSearchViewModel),
+            [MenuType.NicoTemporary] = typeof(NicoTemporaryViewModel),
+            [MenuType.NicoFavorite] = typeof(NicoFavoriteViewModel),
+            [MenuType.NicoFavoriteDetail] = typeof(NicoFavoriteDetailViewModel),
+            [MenuType.NicoHistory] = typeof(NicoHistoryViewModel),
+        };
 
     }
 }

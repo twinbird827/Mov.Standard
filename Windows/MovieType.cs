@@ -6,17 +6,11 @@ using System.Threading.Tasks;
 
 namespace Mov.Standard.Windows
 {
-    public enum MenuType
+    public enum MovieType
     {
-        NicoSearch,
+        Youtube,
 
-        NicoTemporary,
-
-        NicoHistory,
-
-        NicoFavorite,
-
-        NicoFavoriteDetail,
+        Niconico,
 
     }
 }

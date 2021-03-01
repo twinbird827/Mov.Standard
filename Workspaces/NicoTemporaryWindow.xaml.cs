@@ -1,5 +1,4 @@
-﻿using MahApps.Metro.Controls;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Mov.Standard.Windows
+namespace Mov.Standard.Workspaces
 {
     /// <summary>
-    /// MainWindow.xaml の相互作用ロジック
+    /// NicoTemporaryWindow.xaml の相互作用ロジック
     /// </summary>
-    public partial class MainWindow : MetroWindow
+    public partial class NicoTemporaryWindow : UserControl
     {
-        public MainWindow()
+        public NicoTemporaryWindow()
         {
             InitializeComponent();
         }

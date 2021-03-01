@@ -8,6 +8,10 @@
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              Padding="0">
 
+    <UserControl.Resources>
+        <ResourceDictionary Source="pack://application:,,,/Mov.Standard;component/Designs/Controls.xaml" />
+    </UserControl.Resources>
+    
     <Button x:Name="baseContainer"
             Style="{StaticResource DefaultButton}"
             Command="{Binding Command}"
@@ -15,7 +19,9 @@
             FontSize="{Binding FontSize}"
             FontWeight="{Binding FontWeight}">
         <StackPanel>
-            <iconPacks:PackIconMaterial Kind="AbjadArabic" />
+            <iconPacks:PackIconMaterial Kind="{Binding Kind}"
+                                        Margin="{StaticResource Margin.Control}"
+                                        HorizontalAlignment="Center" />
             <TextBlock x:Name="Tb"
                        Style="{StaticResource DefaultTextBlock}"
                        FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button, Mode=FindAncestor}, Path=FontSize}"

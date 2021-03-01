@@ -4,13 +4,11 @@
                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       xmlns:local="clr-namespace:Mov.Standard.Windows"
-                      mc:Ignorable="d"
+                      
                       xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
-                      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-                      xmlns:behavior="clr-namespace:My.Wpf.Behaviors;assembly=My.Wpf"
-                      xmlns:usercontrol="clr-namespace:My.Wpf.UserControls;assembly=My.Wpf"
-                      xmlns:notifications="clr-namespace:Notifications.Wpf.Controls;assembly=Notifications.Wpf"
                       xmlns:properties="clr-namespace:Mov.Standard.Properties"
+                      xmlns:workspaces="clr-namespace:Mov.Standard.Workspaces"
+                      xmlns:behavior="clr-namespace:My.Wpf.Behaviors;assembly=My.Wpf"
                       SaveWindowPosition="True"
                       BorderBrush="{DynamicResource My.Brushes.Accent}"
                       BorderThickness="1"
@@ -19,58 +17,102 @@
                       behavior:WindowBehavior.ContentRendered="{Binding OnLoaded}"
                       behavior:WindowBehavior.Disposable="{Binding}"
                       behavior:WindowBehavior.Closing="{Binding OnClosing}"
-                      MinWidth="600" MinHeight="400">
+                      mc:Ignorable="d"
+                      Height="450" Width="800">
     <Controls:MetroWindow.DataContext>
         <local:MainViewModel />
     </Controls:MetroWindow.DataContext>
 
     <Controls:MetroWindow.Resources>
+        <ResourceDictionary>
 
-        <DataTemplate DataType="{x:Type local:WorkspaceViewModel}">
-            <local:WorkspaceWindow />
-        </DataTemplate>
+            <DataTemplate DataType="{x:Type workspaces:WorkspaceViewModel}">
+                <workspaces:WorkspaceWindow />
+            </DataTemplate>
 
-        <DataTemplate DataType="{x:Type local:MenuViewModel}">
-            <local:MenuWindow />
-        </DataTemplate>
-
+        </ResourceDictionary>
     </Controls:MetroWindow.Resources>
 
     <Grid>
-
-        <notifications:NotificationArea x:Name="NotificationArea" Position="BottomRight" MaxItems="3" />
 
         <DockPanel>
 
             <!-- ｽﾃｰﾀｽﾊﾞｰ -->
             <StatusBar DockPanel.Dock="Bottom" >
                 <TextBlock Style="{StaticResource DefaultTextBlock}"
-                           Text="{Binding Now, StringFormat={x:Static properties:Resources.S_Default_DateFormat}}" />
+                           Text="{Binding Now, StringFormat={x:Static properties:Resources.APP_S_DateFormat_Full}}" />
             </StatusBar>
 
-            <!-- ﾒﾆｭｰ -->
-            <StackPanel DockPanel.Dock="Left" 
+            <!-- 画面遷移ﾎﾞﾀﾝ -->
+            <StackPanel DockPanel.Dock="Left"
                         Style="{StaticResource DefaultStackPanel}">
 
-                <local:IconPacksButton Style="{StaticResource MenuIconpacksButton}"
-                                             Command="{Binding OnClickMenu}"
-                                             CommandParameter="{x:Static local:MenuType.NicoNico}"
-                                             Kind="Tram"
-                                             Text="NicoNico" />
+
+                <local:IconPacksButton
+                    Style="{StaticResource MenuIconpacksButton}"
+                    Visibility="{Binding MovieType, Converter={StaticResource Enum2Boolean2VisibilityCollapsedConverter}, ConverterParameter=Niconico}"
+                    Command="{Binding OnClickNiconico}"
+                    Kind="AppleAirplay"
+                    Text="Niconico" />
+
+                <local:IconPacksButton
+                    Style="{StaticResource MenuIconpacksButton}"
+                    Visibility="{Binding MovieType, Converter={StaticResource Enum2Boolean2VisibilityCollapsedConverter}, ConverterParameter=Youtube}"
+                    Command="{Binding OnClickYoutube}"
+                    Kind="Youtube"
+                    Text="Youtube" />
 
                 <Controls:Underline />
-                
-                <!-- ｺﾝﾃﾝﾂ -->
-                <ContentPresenter Content="{Binding Menu}" />
+
+                <local:IconPacksButton
+                    Style="{StaticResource MenuIconpacksButton}"
+                    Visibility="{Binding MovieType, Converter={StaticResource Enum2Boolean2VisibilityCollapsedConverter}, ConverterParameter=Niconico}"
+                    Command="{Binding OnClickMenu}"
+                    CommandParameter="{x:Static local:MenuType.NicoSearch}"
+                    Kind="Magnify"
+                    Text="Ranking" />
+
+                <local:IconPacksButton
+                    Style="{StaticResource MenuIconpacksButton}"
+                    Visibility="{Binding MovieType, Converter={StaticResource Enum2Boolean2VisibilityCollapsedConverter}, ConverterParameter=Niconico}"
+                    Command="{Binding OnClickMenu}"
+                    CommandParameter="{x:Static local:MenuType.NicoTemporary}"
+                    Kind="Star"
+                    Text="{Binding TemporaryString}"/>
+
+                <local:IconPacksButton
+                    Style="{StaticResource MenuIconpacksButton}"
+                    Visibility="{Binding MovieType, Converter={StaticResource Enum2Boolean2VisibilityCollapsedConverter}, ConverterParameter=Niconico}"
+                    Command="{Binding OnClickMenu}"
+                    CommandParameter="{x:Static local:MenuType.NicoFavorite}"
+                    Kind="Star"
+                    Text="Favorite"/>
+
+                <local:IconPacksButton
+                    Style="{StaticResource MenuIconpacksButton}"
+                    Visibility="{Binding MovieType, Converter={StaticResource Enum2Boolean2VisibilityCollapsedConverter}, ConverterParameter=Niconico}"
+                    Command="{Binding OnClickMenu}"
+                    CommandParameter="{x:Static local:MenuType.NicoFavoriteDetail}"
+                    Kind="Star"
+                    Text="FavoriteDetail"/>
+
+                <local:IconPacksButton
+                    Style="{StaticResource MenuIconpacksButton}"
+                    Visibility="{Binding MovieType, Converter={StaticResource Enum2Boolean2VisibilityCollapsedConverter}, ConverterParameter=Niconico}"
+                    Command="{Binding OnClickMenu}"
+                    CommandParameter="{x:Static local:MenuType.NicoHistory}"
+                    Kind="Star"
+                    Text="History"/>
+
 
             </StackPanel>
-            
-            <!-- ｺﾝﾃﾝﾂ -->
+
+            <!-- ﾒｲﾝ領域 -->
             <ContentPresenter Margin="3"
                               Content="{Binding Current}" />
 
         </DockPanel>
-        
+
         <Border Visibility="{Binding IsShowDialog, Converter={StaticResource Boolean2VisibilityCollapsedConverter}}"
                 Background="{StaticResource ProcessingBackgroundBrush}" />
 

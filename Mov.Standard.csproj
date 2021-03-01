@@ -95,120 +95,64 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Core\Databases\DbFavoriteExtensions.cs" />
-    <Compile Include="Core\Databases\DbSettingExtensions.cs" />
-    <Compile Include="Core\Databases\DbTemporaryExtensions.cs" />
-    <Compile Include="Core\Databases\DbUtil.cs" />
-    <Compile Include="Core\Databases\DbVideoHistoryExtensions.cs" />
-    <Compile Include="Core\Databases\TFavorite.cs" />
-    <Compile Include="Core\Databases\TSetting.cs" />
-    <Compile Include="Core\Databases\TTemporary.cs" />
-    <Compile Include="Core\Databases\TVideoHistory.cs" />
-    <Compile Include="Core\MovConst.cs" />
-    <Compile Include="Core\MovSetting.cs" />
-    <Compile Include="Models\MovModel.cs" />
-    <Compile Include="Nico\Components\NicoComboViewModel.cs" />
-    <Compile Include="Nico\Components\NicoMylistDetailViewModel.cs" />
-    <Compile Include="Nico\Components\NicoMylistDetailWindow.xaml.cs">
-      <DependentUpon>NicoMylistDetailWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Nico\Components\NicoVideoDetailWindow.xaml.cs">
-      <DependentUpon>NicoVideoDetailWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Nico\Components\NicoVideoDetailViewModel.cs" />
-    <Compile Include="Nico\Components\NicoVideoHistoryDetailViewModel.cs" />
-    <Compile Include="Nico\Components\NicoVideoHistoryDetailWindow.xaml.cs">
-      <DependentUpon>NicoVideoHistoryDetailWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Nico\Models\NicoFavoriteModel.cs" />
-    <Compile Include="Nico\Models\NicoTemporaryModel.cs" />
-    <Compile Include="Nico\Models\NicoVideoHistoryModel.cs" />
-    <Compile Include="Nico\Models\WebUtil.cs" />
-    <Compile Include="Models\VideoStatus.cs" />
-    <Compile Include="Nico\Models\NicoMylistModel.cs" />
-    <Compile Include="Nico\Models\NicoVideoModel.cs" />
-    <Compile Include="Nico\Workspaces\NicoFavoriteViewModel.cs" />
-    <Compile Include="Nico\Workspaces\NicoFavoriteWindow.xaml.cs">
-      <DependentUpon>NicoFavoriteWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Nico\Workspaces\NicoMainViewModel.cs" />
-    <Compile Include="Nico\Workspaces\NicoMainWindow.xaml.cs">
-      <DependentUpon>NicoMainWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Nico\Workspaces\NicoMenuType.cs" />
-    <Compile Include="Nico\Workspaces\NicoMylistViewModel.cs" />
-    <Compile Include="Nico\Workspaces\NicoMylistWindow.xaml.cs">
-      <DependentUpon>NicoMylistWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Nico\Workspaces\NicoRankingViewModel.cs" />
-    <Compile Include="Nico\Workspaces\NicoRankingWindow.xaml.cs">
-      <DependentUpon>NicoRankingWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Nico\Workspaces\NicoTemporaryViewModel.cs" />
-    <Compile Include="Nico\Workspaces\NicoTemporaryWindow.xaml.cs">
-      <DependentUpon>NicoTemporaryWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Nico\Workspaces\NicoVideoHistoryViewModel.cs" />
-    <Compile Include="Nico\Workspaces\NicoVideoHistoryWindow.xaml.cs">
-      <DependentUpon>NicoVideoHistoryWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Models\VideoModel.cs" />
-    <Compile Include="Nico\Models\Session.cs" />
-    <Compile Include="Nico\Models\NicoUtil.cs" />
+    <Compile Include="Core.Database\DbNicoExtensions.cs" />
+    <Compile Include="Core.Database\DbUtil.cs" />
+    <Compile Include="Core.Database\TNicoFavorite.cs" />
+    <Compile Include="Core.Database\VNicoHistory.cs" />
+    <Compile Include="Core.Database\TNicoTemporary.cs" />
+    <Compile Include="Core.Nico\NicoUtil.cs" />
+    <Compile Include="Core.Nico\NicoVideoModel.cs" />
+    <Compile Include="Core\AppSetting.cs" />
+    <Compile Include="Core\VideoStatus.cs" />
+    <Compile Include="Core\WebUtil.cs" />
     <Compile Include="Windows\IconPacksButton.xaml.cs">
       <DependentUpon>IconPacksButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\MainViewModel.cs" />
+    <Compile Include="Windows\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\MenuType.cs" />
-    <Compile Include="Windows\MenuViewModel.cs" />
-    <Compile Include="Windows\MenuWindow.xaml.cs">
-      <DependentUpon>MenuWindow.xaml</DependentUpon>
+    <Compile Include="Windows\MovieType.cs" />
+    <Compile Include="Workspaces.Base\NicoMylistViewModel.cs" />
+    <Compile Include="Workspaces.Base\NicoVideoViewModel.cs" />
+    <Compile Include="Workspaces\NicoFavoriteDetailViewModel.cs" />
+    <Compile Include="Workspaces\NicoFavoriteDetailWindow.xaml.cs">
+      <DependentUpon>NicoFavoriteDetailWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\NicoAccountViewModel.cs" />
-    <Compile Include="Windows\NicoAccountWindow.xaml.cs">
-      <DependentUpon>NicoAccountWindow.xaml</DependentUpon>
+    <Compile Include="Workspaces\NicoFavoriteViewModel.cs" />
+    <Compile Include="Workspaces\NicoFavoriteWindow.xaml.cs">
+      <DependentUpon>NicoFavoriteWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\WorkspaceViewModel.cs" />
-    <Compile Include="Windows\WorkspaceWindow.xaml.cs">
+    <Compile Include="Workspaces\NicoHistoryViewModel.cs" />
+    <Compile Include="Workspaces\NicoHistoryWindow.xaml.cs">
+      <DependentUpon>NicoHistoryWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Workspaces\NicoSearchViewModel.cs" />
+    <Compile Include="Workspaces\NicoSearchWindow.xaml.cs">
+      <DependentUpon>NicoSearchWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Workspaces\NicoTemporaryViewModel.cs" />
+    <Compile Include="Workspaces\NicoTemporaryWindow.xaml.cs">
+      <DependentUpon>NicoTemporaryWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Workspaces\WorkspaceViewModel.cs" />
+    <Compile Include="Workspaces\WorkspaceWindow.xaml.cs">
       <DependentUpon>WorkspaceWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="Designs\Common.xaml">
+    <Page Include="Designs\Controls.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Nico\Components\NicoMylistDetailWindow.xaml">
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Designs\NicoMylistViewModel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Nico\Components\NicoVideoDetailWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Nico\Components\NicoVideoHistoryDetailWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Nico\Workspaces\NicoFavoriteWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Nico\Workspaces\NicoMainWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Nico\Workspaces\NicoMylistWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Nico\Workspaces\NicoRankingWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Nico\Workspaces\NicoTemporaryWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Nico\Workspaces\NicoVideoHistoryWindow.xaml">
+    <Page Include="Designs\NicoVideoViewModel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -217,26 +161,30 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Windows\MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Page Include="Windows\MenuWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\NicoAccountWindow.xaml">
+    <Page Include="Workspaces\NicoFavoriteDetailWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\WorkspaceWindow.xaml">
+    <Page Include="Workspaces\NicoFavoriteWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Workspaces\NicoHistoryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Workspaces\NicoSearchWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Workspaces\NicoTemporaryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Workspaces\WorkspaceWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -282,12 +230,15 @@
       <Name>My.Wpf</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Workspaces.Components\" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Designs\mov_standard.ico" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="lib\nico-combo-setting.xml">
+      <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

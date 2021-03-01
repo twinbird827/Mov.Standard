@@ -61,6 +61,24 @@ namespace Mov.Standard.Properties {
         }
         
         /// <summary>
+        ///   yy/MM/dd HH:mm:ss に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string APP_S_DateFormat_Full {
+            get {
+                return ResourceManager.GetString("APP_S_DateFormat_Full", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Mov.Standard に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string APP_Title {
+            get {
+                return ResourceManager.GetString("APP_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   追加 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string L_IconAdd {
@@ -84,6 +102,51 @@ namespace Mov.Standard.Properties {
         public static string L_IconSearch {
             get {
                 return ResourceManager.GetString("L_IconSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   DEL に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Mov_Standard_Core_VideoStatus_Delete {
+            get {
+                return ResourceManager.GetString("Mov_Standard_Core_VideoStatus_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   NEW に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Mov_Standard_Core_VideoStatus_New {
+            get {
+                return ResourceManager.GetString("Mov_Standard_Core_VideoStatus_New", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Mov_Standard_Core_VideoStatus_None {
+            get {
+                return ResourceManager.GetString("Mov_Standard_Core_VideoStatus_None", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   SEE に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Mov_Standard_Core_VideoStatus_See {
+            get {
+                return ResourceManager.GetString("Mov_Standard_Core_VideoStatus_See", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   TMP に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Mov_Standard_Core_VideoStatus_Temporary {
+            get {
+                return ResourceManager.GetString("Mov_Standard_Core_VideoStatus_Temporary", resourceCulture);
             }
         }
         
@@ -255,15 +318,6 @@ namespace Mov.Standard.Properties {
         public static string S_Filter_Common_MP4 {
             get {
                 return ResourceManager.GetString("S_Filter_Common_MP4", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Mov.Standard に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        public static string V_MainTitle {
-            get {
-                return ResourceManager.GetString("V_MainTitle", resourceCulture);
             }
         }
     }
