@@ -85,7 +85,7 @@
                     Visibility="{Binding MovieType, Converter={StaticResource Enum2Boolean2VisibilityCollapsedConverter}, ConverterParameter=Niconico}"
                     Command="{Binding OnClickMenu}"
                     CommandParameter="{x:Static local:MenuType.NicoFavorite}"
-                    Kind="Star"
+                    Kind="Archive"
                     Text="Favorite"/>
 
                 <local:IconPacksButton
@@ -93,7 +93,7 @@
                     Visibility="{Binding MovieType, Converter={StaticResource Enum2Boolean2VisibilityCollapsedConverter}, ConverterParameter=Niconico}"
                     Command="{Binding OnClickMenu}"
                     CommandParameter="{x:Static local:MenuType.NicoFavoriteDetail}"
-                    Kind="Star"
+                    Kind="AnimationPlay"
                     Text="FavoriteDetail"/>
 
                 <local:IconPacksButton
@@ -101,7 +101,7 @@
                     Visibility="{Binding MovieType, Converter={StaticResource Enum2Boolean2VisibilityCollapsedConverter}, ConverterParameter=Niconico}"
                     Command="{Binding OnClickMenu}"
                     CommandParameter="{x:Static local:MenuType.NicoHistory}"
-                    Kind="Star"
+                    Kind="History"
                     Text="History"/>
 
 
