@@ -235,8 +235,6 @@ namespace Mov.Standard.Workspaces.Base
 
         public ICommand OnDoubleClick => _OnDoubleClick = _OnDoubleClick ?? new RelayCommand(async _ =>
         {
-            Process.Start(@"C:\Program Files\Google\Chrome\Application\chrome.exe", VideoUrl);
-
             // 詳細にあるidをtemporaryに追加
             foreach (var videoid in Regex.Matches(Description, @"(?<id>sm[\d]+)").OfType<Match>()
                     .Select(m => m.Groups["id"].Value)
@@ -251,6 +249,11 @@ namespace Mov.Standard.Workspaces.Base
 
             // ｽﾃｰﾀｽをﾘﾌﾚｯｼｭ
             RefreshVideoStatus(Status);
+
+            // Chromiumで画面表示
+            MainViewModel.Instance.Current = new NicoChromiumViewModel(VideoUrl);
+            //Process.Start(@"C:\Program Files\Google\Chrome\Application\chrome.exe", VideoUrl);
+
         });
         private ICommand _OnDoubleClick;
 

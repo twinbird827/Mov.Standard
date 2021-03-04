@@ -18,5 +18,6 @@ namespace Mov.Standard.Windows
 
         NicoFavoriteDetail,
 
+        NicoChromium,
     }
 }

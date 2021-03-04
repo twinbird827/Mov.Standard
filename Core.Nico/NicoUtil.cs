@@ -500,12 +500,17 @@ namespace Mov.Standard.Core.Nico
                 using (var handler = new HttpClientHandler())
                 using (var client = new HttpClient(handler))
                 {
+                    progress.Title = "Download";
+                    progress.IsIndeterminate = true;
+
                     client.Timeout = new TimeSpan(1, 0, 0);
 
-                    //// ﾛｸﾞｲﾝｸｯｷｰ設定
+                    // ﾛｸﾞｲﾝｸｯｷｰ設定
+                    progress.Message = "Getting cookies.";
                     handler.CookieContainer = await TryLoginAsync();
 
                     // 対象動画にｼﾞｬﾝﾌﾟ
+                    progress.Message = "Getting download url.";
                     var watchurl = $"http://www.nicovideo.jp/watch/{videoid}";
                     await client.PostAsync(watchurl, null);
 
@@ -513,14 +518,33 @@ namespace Mov.Standard.Core.Nico
                     var flapiurl = $"http://flapi.nicovideo.jp/api/getflv/{videoid}";
                     var flapibody = await client.GetStringAsync(flapiurl);
                     var movieurl = Regex.Match(Uri.UnescapeDataString(flapibody), @"&url=.*").Value.Replace("&url=", "");
-                    var res = await client.SendAsync(new HttpRequestMessage(HttpMethod.Get, flapiurl));
 
-                    File.WriteAllBytes(path, await client.GetByteArrayAsync(movieurl));
+                    using (var dummy = await client.SendAsync(new HttpRequestMessage(HttpMethod.Get, flapiurl)))
+                    using (var response = await client.GetAsync(movieurl, HttpCompletionOption.ResponseHeadersRead))
+                    using (var rs = await response.Content.ReadAsStreamAsync())
+                    using (var fs = new FileStream(path, FileMode.Create))
+                    {
+                        progress.Message = $"Downloading contents.\n{movieurl} to {path}";
+                        progress.IsIndeterminate = false;
+                        progress.Minimum = 0;
+                        progress.Maximum = (double)response.Content.Headers.ContentLength;
+                        progress.Progress = 0;
+
+                        var bytes = new byte[2048];
+                        var size = 0;
+
+                        while ((size = await rs.ReadAsync(bytes, 0, bytes.Length)) != 0)
+                        {
+                            await fs.WriteAsync(bytes, 0, size);
+
+                            progress.Progress += size;
+                        }
+                    }
                 }
             });
         }
 
-        private static async Task<CookieContainer> TryLoginAsync()
+        public static async Task<CookieContainer> TryLoginAsync()
         {
             using (var command = await DbUtil.GetControl())
             {

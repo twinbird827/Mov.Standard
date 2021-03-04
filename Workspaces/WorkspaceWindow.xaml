@@ -29,6 +29,10 @@
             <local:NicoHistoryWindow />
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type local:NicoChromiumViewModel}">
+            <local:NicoChromiumWindow CookieManager="{Binding CookieManager}" />
+        </DataTemplate>
+
     </UserControl.Resources>
     
     <ContentPresenter Content="{Binding}"
